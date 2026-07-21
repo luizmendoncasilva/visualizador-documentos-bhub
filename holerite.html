@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Holerite</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461; --brandPinkSoft:#fde7ea; --brandBlue:#0171e4;
+    --textPrimary:#18181b; --textSecondary:#52525b;
+    --border:#e4e4e7; --borderStrong:#d4d4d8; --surface:#ffffff; --surfaceMuted:#f7f7f8;
+    --danger:#dc2626; --success:#16a34a;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f0f0f2;font-family:'Nunito Sans',sans-serif;padding:28px 20px;}
+  .shell{max-width:900px;margin:0 auto;background:var(--surface);border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.08);overflow:hidden;}
+
+  .cab{background:#fff;border-bottom:2px solid var(--borderStrong);padding:16px 24px 12px;}
+  .cabTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cabLogo{display:flex;align-items:center;gap:10px;}
+  .cabLogo .bhName{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .cabLogo .bhSub{font-size:10px;font-weight:500;color:var(--textSecondary);}
+  .cabTitulo{font-size:15px;font-weight:800;color:var(--textPrimary);text-align:right;text-transform:uppercase;}
+  .cabDivider{border-top:1px solid var(--border);margin-bottom:10px;}
+  .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
+  .metaGrid span{color:var(--textSecondary);font-weight:500;}
+  .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .right{text-align:right;}
+
+  .rodape{border-top:1px solid var(--border);padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:500;color:var(--textSecondary);}
+  .rodape .brand{display:flex;align-items:center;gap:4px;}
+  .rodape strong{color:var(--textPrimary);font-weight:700;margin-left:3px;}
+  .rodape .pag{font-weight:700;}
+
+  .body{padding:16px 24px;display:flex;flex-direction:column;gap:12px;}
+
+  .card{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+  .cardHead{background:var(--surfaceMuted);border-bottom:1px solid var(--border);padding:10px 14px;}
+  .cardHead .nome{font-size:11px;font-weight:800;color:var(--textPrimary);}
+  .cardHead .sub{font-size:9px;color:var(--textSecondary);margin-top:3px;font-weight:500;}
+  .miniGrid{background:var(--surface);padding:8px 14px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .miniGrid .l{font-size:9px;color:var(--textSecondary);font-weight:500;}
+  .miniGrid .v{font-size:10px;font-weight:700;color:var(--textPrimary);margin-top:1px;}
+
+  table{width:100%;border-collapse:collapse;font-size:10px;}
+  thead th{padding:7px 10px;background:var(--brandPink);font-size:9px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.05em;}
+  th.left,td.left{text-align:left;}
+  th.right,td.right{text-align:right;}
+  tbody td{padding:6px 10px;border-bottom:1px solid var(--border);}
+  tr.even td{background:var(--surface);}
+  tr.odd td{background:var(--surfaceMuted);}
+  .codSec{color:var(--textSecondary);font-weight:500;}
+  .descPrim{color:var(--textPrimary);font-weight:700;}
+  .provento{color:#2748B2;font-weight:800;}
+  .desconto{color:var(--danger);font-weight:800;}
+  .vazio{color:var(--textSecondary);font-weight:800;}
+
+  .totalRow{background:var(--surfaceMuted);border-top:2px solid var(--borderStrong);}
+  .totalRow td{border-bottom:none;padding:8px 10px;}
+  .totalWrap{display:flex;justify-content:flex-end;align-items:center;gap:12px;}
+  .totalLabel{font-size:10px;font-weight:700;color:var(--textSecondary);}
+  .totalValue{font-size:12px;font-weight:800;color:var(--success);}
+
+  .basesTitle{font-size:9px;font-weight:700;color:var(--textSecondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+  .basesGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .baseCard{border:1px solid var(--border);border-radius:8px;padding:8px 12px;background:var(--surfaceMuted);}
+  .baseCard .l{font-size:9px;color:var(--textSecondary);margin-bottom:3px;font-weight:500;}
+  .baseCard .v{font-size:12px;font-weight:700;color:var(--textPrimary);}
+
+  .assinatura{margin-top:24px;padding-top:16px;border-top:1px dashed var(--borderStrong);font-size:10px;color:var(--textSecondary);}
+  .declaracao{margin-bottom:32px;font-weight:500;color:var(--textPrimary);}
+  .assinaturaRow{display:flex;justify-content:space-between;align-items:flex-end;}
+  .dataField{font-weight:700;color:var(--textPrimary);}
+  .assinaturaLinha{text-align:center;}
+  .linha{width:300px;border-bottom:1px solid var(--textPrimary);margin-bottom:6px;}
+  .assinaturaLabel{font-weight:500;color:var(--textSecondary);}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor DP · Holerite</div>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">HOLERITE</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PADARIA PÃO &amp; CIA LTDA.</strong></span>
+      <span class="right">CNPJ: <strong>12.345.678/0001-99</strong></span>
+      <span>Tipo: <strong>CLT</strong></span>
+      <span class="right">Competência: <strong>05/2026</strong></span>
+      <span>Período: <strong>—</strong></span>
+      <span class="right">Emissão: <strong>06/06/2026 08:45:12</strong></span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="card">
+      <div class="cardHead">
+        <div class="nome">0042 — FERNANDA COSTA ALVES</div>
+        <div class="sub">CPF: 654.987.321-00 · Adm: 15/03/2021</div>
+      </div>
+      <div class="miniGrid">
+        <div><div class="l">Código</div><div class="v">0042</div></div>
+        <div><div class="l">Cargo</div><div class="v">Analista Financeiro</div></div>
+        <div><div class="l">CBO</div><div class="v">2522-05</div></div>
+        <div><div class="l">Salário base</div><div class="v">R$ 4.800,00</div></div>
+        <div><div class="l">Mat. INSS</div><div class="v">12345678901</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:48px">Cód.</th>
+            <th class="left">Descrição</th>
+            <th class="right" style="width:76px">Referência</th>
+            <th class="right" style="width:108px">Proventos (+)</th>
+            <th class="right" style="width:108px">Descontos (-)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="even"><td class="codSec">0001</td><td class="descPrim">SALÁRIO MENSAL</td><td class="right codSec">30 dias</td><td class="right provento">R$ 4.800,00</td><td class="right vazio">—</td></tr>
+          <tr class="odd"><td class="codSec">0010</td><td class="descPrim">HORAS EXTRAS 50%</td><td class="right codSec">4 hrs</td><td class="right provento">R$ 109,09</td><td class="right vazio">—</td></tr>
+          <tr class="even"><td class="codSec">0020</td><td class="descPrim">ADIANT. SALARIAL</td><td class="right codSec">-</td><td class="right vazio">—</td><td class="right desconto">-R$ 1.200,00</td></tr>
+          <tr class="odd"><td class="codSec">302</td><td class="descPrim">INSS</td><td class="right codSec">-</td><td class="right vazio">—</td><td class="right desconto">-R$ 396,00</td></tr>
+          <tr class="even"><td class="codSec">410</td><td class="descPrim">IRRF</td><td class="right codSec">-</td><td class="right vazio">—</td><td class="right desconto">-R$ 247,53</td></tr>
+          <tr class="odd" style="border-bottom:none;"><td class="codSec">590</td><td class="descPrim">VALE TRANSPORTE</td><td class="right codSec">22 dias</td><td class="right vazio">—</td><td class="right desconto">-R$ 117,00</td></tr>
+        </tbody>
+        <tfoot>
+          <tr class="totalRow">
+            <td colspan="3"></td>
+            <td colspan="2">
+              <div class="totalWrap">
+                <span class="totalLabel">Total Líquido</span>
+                <span class="totalValue">R$ 2.948,56</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div>
+      <div class="basesTitle">Bases de Cálculo</div>
+      <div class="basesGrid">
+        <div class="baseCard"><div class="l">Sal. Contrib. INSS</div><div class="v">R$ 4.909,09</div></div>
+        <div class="baseCard"><div class="l">Base Calc. FGTS</div><div class="v">R$ 4.909,09</div></div>
+        <div class="baseCard"><div class="l">Base Calc. IRRF</div><div class="v">R$ 4.266,56</div></div>
+      </div>
+    </div>
+
+    <div class="assinatura">
+      <div class="declaracao">Declaro ter recebido a importância líquida discriminada neste recibo.</div>
+      <div class="assinaturaRow">
+        <div class="dataField">Data: ______ / ______ / __________</div>
+        <div class="assinaturaLinha">
+          <div class="linha"></div>
+          <div class="assinaturaLabel">Assinatura do Funcionário</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand">
+      <svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+      powered by <strong>BHub</strong>
+    </span>
+    <span class="pag">Página 1 de 1</span>
+  </div>
+</div>
+
+</body>
+</html>

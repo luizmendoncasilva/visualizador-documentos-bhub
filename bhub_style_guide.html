@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHub · Style Guide — Documentos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brandPink:#f25461;
+    --brandPinkSoft:#fde7ea;
+    --brandPinkSoftBorder:#f25461;
+    --brandBlue:#0171e4;
+    --brandBlueSoftBg: rgba(1,113,228,0.08);
+    --brandBlueSoftBorder: rgba(1,113,228,0.35);
+    --textPrimary:#18181b;
+    --textSecondary:#52525b;
+    --border:#e4e4e7;
+    --borderStrong:#d4d4d8;
+    --surface:#ffffff;
+    --surfaceMuted:#f7f7f8;
+    --sidebarBg:#0f1726;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --catContabil:#16a34a;
+    --catFiscal:#2563eb;
+    --catDP:#7c3aed;
+    --font: 'Nunito Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--font);
+    background:#ebebed;
+    color:var(--textPrimary);
+  }
+
+  /* ── LAYOUT: TOPBAR + MAIN ───────────────────────────── */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--sidebarBg);
+    padding:14px 28px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .back-btn{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    color:#fff;
+    font-family:var(--font);
+    font-size:13px;
+    font-weight:800;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background 0.15s;
+  }
+  .back-btn:hover{background:rgba(255,255,255,0.16);}
+  .back-btn svg{flex-shrink:0;}
+
+  .topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .topbar-brand-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-0.02em;}
+  .topbar-brand-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;}
+
+  main{
+    max-width:980px;
+    margin:0 auto;
+    padding:48px 40px 120px;
+  }
+
+  section{scroll-margin-top:24px; margin-bottom:64px;}
+
+  .hero{
+    margin-bottom:56px;
+  }
+  .hero-eyebrow{
+    font-size:11px;font-weight:800;color:var(--brandPink);
+    text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;
+  }
+  .hero h1{
+    font-size:34px;font-weight:900;letter-spacing:-0.03em;margin:0 0 12px;color:var(--textPrimary);
+  }
+  .hero p{
+    font-size:15px;font-weight:500;color:var(--textSecondary);line-height:1.6;max-width:640px;margin:0;
+  }
+
+  h2.section-title{
+    font-size:20px;font-weight:900;color:var(--textPrimary);
+    margin:0 0 6px;
+    display:flex;align-items:center;gap:8px;
+  }
+  h2.section-title .dot{color:var(--brandPink);}
+  .section-sub{
+    font-size:13px;font-weight:500;color:var(--textSecondary);
+    margin:0 0 24px;line-height:1.6;max-width:640px;
+  }
+
+  .card{
+    background:var(--surface);
+    border-radius:12px;
+    border:1px solid var(--border);
+    box-shadow:0 4px 12px rgba(0,0,0,0.04);
+    padding:24px;
+  }
+
+  .grid{display:grid;gap:16px;}
+  .grid-2{grid-template-columns:1fr 1fr;}
+  .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-auto{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));}
+
+  /* ── USAGE NOTE (onde é usado / porque) ─────────────── */
+  .usage-note{
+    display:flex;
+    gap:10px;
+    background:var(--surfaceMuted);
+    border:1px dashed var(--borderStrong);
+    border-radius:8px;
+    padding:12px 14px;
+    margin-top:14px;
+  }
+  .usage-note .icon{font-size:14px;line-height:1;color:var(--brandBlue);flex-shrink:0;}
+  .usage-note .text{font-size:12px;font-weight:500;color:var(--textSecondary);line-height:1.55;}
+  .usage-note .text b{font-weight:800;color:var(--textPrimary);}
+  .usage-note .text .tag{
+    display:inline-block;
+    background:var(--brandPinkSoft);
+    color:var(--brandPink);
+    font-weight:800;
+    font-size:10px;
+    padding:1px 6px;
+    border-radius:5px;
+    margin:1px 3px 1px 0;
+  }
+
+  code.tk{
+    background:var(--surfaceMuted);
+    border:1px solid var(--border);
+    padding:2px 7px;
+    border-radius:5px;
+    font-size:11.5px;
+    font-weight:800;
+    color:var(--brandBlue);
+    font-family:'SF Mono', ui-monospace, monospace;
+  }
+  code.tk.danger{color:var(--danger);}
+
+  /* status badges */
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;
+    padding:3px 9px;border-radius:20px;
+  }
+  .badge.ok{background:rgba(22,163,74,0.1);color:var(--success);}
+  .badge.warn{background:rgba(220,38,38,0.1);color:var(--danger);}
+  .badge.new{background:var(--brandPinkSoft);color:var(--brandPink);}
+
+  /* color swatches */
+  .swatch{
+    border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface);
+  }
+  .swatch .fill{height:52px;border-bottom:1px solid var(--border);}
+  .swatch .meta{padding:12px;}
+  .swatch .meta .name{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .swatch .meta .hex{font-size:11px;color:var(--textSecondary);font-weight:700;margin:2px 0 6px;font-family:ui-monospace,monospace;}
+  .swatch .meta .use{font-size:11px;color:var(--textSecondary);font-weight:500;line-height:1.4;}
+
+  /* typography scale */
+  .type-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);}
+  .type-row:last-child{border-bottom:none;}
+  .type-row .sample{color:var(--textPrimary);}
+  .type-row .label{font-size:11px;font-weight:700;color:var(--textSecondary);white-space:nowrap;font-family:ui-monospace,monospace;}
+
+  /* spacing bars */
+  .space-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+  .space-row .bar{background:var(--brandPink);height:14px;border-radius:3px;}
+  .space-row .label{font-size:11px;font-weight:700;color:var(--textSecondary);width:110px;font-family:ui-monospace,monospace;}
+
+  /* radius demo */
+  .radius-box{
+    width:64px;height:64px;background:var(--brandPinkSoft);border:2px solid var(--brandPink);
+    display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--brandPink);
+  }
+
+  /* borders demo */
+  .border-box{
+    width:100%;height:48px;background:var(--surface);display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;color:var(--textSecondary);
+  }
+
+  /* mini component demos */
+  .demo-frame{
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--surface);
+  }
+
+  table.demo-table{width:100%;border-collapse:collapse;font-size:11px;}
+  table.demo-table th{padding:8px 12px;text-align:left;font-size:10px;font-weight:800;text-transform:uppercase;color:#fff;background:var(--brandPink);}
+  table.demo-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+
+  /* code block */
+  pre.code-block{
+    background:#0f1015;
+    color:#e4e4e7;
+    border-radius:10px;
+    padding:16px 18px;
+    font-size:11.5px;
+    line-height:1.6;
+    overflow-x:auto;
+    font-family:'SF Mono', ui-monospace, monospace;
+    margin:0;
+  }
+  pre.code-block .cm{color:#71717a;}
+  pre.code-block .kw{color:#f25461;}
+  pre.code-block .st{color:#4ade80;}
+
+  .doclist{display:flex;flex-wrap:wrap;gap:8px;}
+  .doclist .pill{
+    background:var(--surfaceMuted);border:1px solid var(--border);border-radius:20px;
+    padding:6px 14px;font-size:12px;font-weight:700;color:var(--textPrimary);
+    display:flex;align-items:center;gap:6px;
+  }
+  .doclist .pill .dotstatus{width:6px;height:6px;border-radius:50%;background:var(--success);}
+
+  .banned-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 16px;background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.2);border-radius:8px;margin-bottom:10px;
+  }
+  .banned-row:last-child{margin-bottom:0;}
+  .banned-row .name{font-family:ui-monospace,monospace;font-size:12px;font-weight:800;color:var(--danger);}
+  .banned-row .why{font-size:11.5px;font-weight:500;color:var(--textSecondary);}
+
+  .toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .toc-grid a{
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;
+    text-decoration:none;color:var(--textPrimary);font-weight:700;font-size:13px;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:border-color 0.15s;
+  }
+  .toc-grid a:hover{border-color:var(--brandPink);}
+  .toc-grid a span.arrow{color:var(--brandPink);}
+
+  @media (max-width: 860px){
+    .grid-2, .grid-3{grid-template-columns:1fr;}
+    .toc-grid{grid-template-columns:1fr;}
+    main{padding:32px 20px 100px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="topbar-brand-title">BHub</div>
+      <div class="topbar-brand-sub">Style Guide · Documentos</div>
+    </div>
+  </div>
+</div>
+
+  <!-- ══════════════ MAIN ══════════════ -->
+  <main>
+
+    <!-- ── INTRO ── -->
+    <section id="intro">
+      <div class="hero">
+        <div class="hero-eyebrow">Design System · Documentos BHub</div>
+        <h1>Guia Definitivo de Relatórios<span class="dot">.</span></h1>
+        <p>
+          Cores, tipografia, componentes estruturais e padrões de layout usados nos documentos
+          fiscais, contábeis e de folha de pagamento deste projeto.
+        </p>
+      </div>
+
+      <div class="toc-grid">
+        <a href="#cores">Cores & Tokens <span class="arrow">→</span></a>
+        <a href="#totalizadores">Totalizadores <span class="arrow">→</span></a>
+        <a href="#banidos">Elementos fora de uso <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- ── DOCUMENTOS DO MÓDULO ── -->
+    <section id="documentos">
+      <h2 class="section-title">Documentos do projeto<span class="dot">.</span></h2>
+      <p class="section-sub">Relatórios organizados por área, todos consumindo os mesmos tokens e componentes deste guia.</p>
+
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span class="dotstatus" style="background:var(--catContabil);"></span>
+          <span style="font-size:12px;font-weight:800;color:var(--textPrimary);">Contábil</span>
+        </div>
+        <div class="doclist" style="margin-bottom:20px;">
+          <div class="pill"><span class="dotstatus" style="background:var(--catContabil);"></span> Relatório Balancete</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catContabil);"></span> Documento de DRE</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catContabil);"></span> Relatório Razão</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catContabil);"></span> Relatório - Balanço</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span class="dotstatus" style="background:var(--catFiscal);"></span>
+          <span style="font-size:12px;font-weight:800;color:var(--textPrimary);">Fiscal</span>
+        </div>
+        <div class="doclist" style="margin-bottom:20px;">
+          <div class="pill"><span class="dotstatus" style="background:var(--catFiscal);"></span> Relatório de Faturamento (v3)</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catFiscal);"></span> Retenções a Recolher</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catFiscal);"></span> DIFAL</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span class="dotstatus" style="background:var(--catDP);"></span>
+          <span style="font-size:12px;font-weight:800;color:var(--textPrimary);">Departamento Pessoal</span>
+        </div>
+        <div class="doclist">
+          <div class="pill"><span class="dotstatus" style="background:var(--catDP);"></span> Holerite</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catDP);"></span> Relação de Líquidos</div>
+          <div class="pill"><span class="dotstatus" style="background:var(--catDP);"></span> Extrato Mensal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CORES ── -->
+    <section id="cores">
+      <h2 class="section-title">Cores<span class="dot">.</span></h2>
+      <p class="section-sub">Paleta única do sistema.</p>
+
+      <div class="grid grid-auto">
+        <div class="swatch">
+          <div class="fill" style="background:var(--brandPink)"></div>
+          <div class="meta"><div class="name">brandPink</div><div class="hex">#f25461</div><div class="use">Header de tabela, títulos de agrupamento Nível 2, acentos primários.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--brandPinkSoft); border:1px solid var(--brandPink)"></div>
+          <div class="meta"><div class="name">brandPinkSoft</div><div class="hex">#fde7ea · borda #f25461</div><div class="use">Fundo de agrupamentos (Imposto, Fornecedor, Contas), com a borda correspondente.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--brandBlue)"></div>
+          <div class="meta"><div class="name">brandBlue</div><div class="hex">#0171e4</div><div class="use">TotalBanner, totais de imposto em destaque.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--textPrimary)"></div>
+          <div class="meta"><div class="name">textPrimary</div><div class="hex">#18181b</div><div class="use">Texto principal, valores, títulos, totais gerais.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--textSecondary)"></div>
+          <div class="meta"><div class="name">textSecondary</div><div class="hex">#52525b</div><div class="use">Metadados, labels, descrições secundárias.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--surface); border-bottom:1px solid var(--border)"></div>
+          <div class="meta"><div class="name">surface</div><div class="hex">#ffffff</div><div class="use">Fundo dos cards e linhas padrão de tabela.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--surfaceMuted)"></div>
+          <div class="meta"><div class="name">surfaceMuted</div><div class="hex">#f7f7f8</div><div class="use">Zebra de tabelas, fundo do Total Geral.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--border)"></div>
+          <div class="meta"><div class="name">border</div><div class="hex">#e4e4e7</div><div class="use">Bordas comuns de tabela e cards.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="fill" style="background:var(--borderStrong)"></div>
+          <div class="meta"><div class="name">borderStrong</div><div class="hex">#d4d4d8</div><div class="use">Borda separadora abaixo do cabeçalho e acima do Total Geral.</div></div>
+        </div>
+      </div>
+
+      <div class="usage-note">
+        <div class="icon">◆</div>
+        <div class="text"><b>Utilizado em:</b> <span class="tag">Retenções a Recolher</span><span class="tag">DIFAL</span><span class="tag">Relatório de Faturamento</span> — qualquer tabela com agrupamentos hierárquicos usa <code class="tk">brandPinkSoft</code> como fundo de seção.</div>
+      </div>
+    </section>
+
+    <!-- ── TIPOGRAFIA ── -->
+    <section id="tipografia">
+      <h2 class="section-title">Tipografia<span class="dot">.</span></h2>
+      <p class="section-sub">Fonte global: <b>Nunito Sans</b>. Apenas 4 pesos são válidos no sistema inteiro.</p>
+
+      <div class="card">
+        <div class="type-row">
+          <div class="sample" style="font-size:26px;font-weight:900;">Weight 900 — Black</div>
+          <div class="label">Grandes títulos, Total Geral</div>
+        </div>
+        <div class="type-row">
+          <div class="sample" style="font-size:19px;font-weight:800;">Weight 800 — ExtraBold</div>
+          <div class="label">Títulos, headers, col. de tabela</div>
+        </div>
+        <div class="type-row">
+          <div class="sample" style="font-size:15px;font-weight:700;">Weight 700 — Bold</div>
+          <div class="label">Corpo de texto, valores em linha</div>
+        </div>
+        <div class="type-row">
+          <div class="sample" style="font-size:13px;font-weight:500;">Weight 500 — Medium</div>
+          <div class="label">Labels, metadados (padrão do sistema)</div>
+        </div>
+      </div>
+
+      <div class="usage-note">
+        <div class="icon">✕</div>
+        <div class="text">Pesos em uso no sistema: <code class="tk">500</code>, <code class="tk">700</code>, <code class="tk">800</code> e <code class="tk">900</code>.</div>
+      </div>
+    </section>
+
+    <!-- ── ESPAÇAMENTO & RADIUS ── -->
+    <section id="espacamento">
+      <h2 class="section-title">Espaçamento & Radius<span class="dot">.</span></h2>
+      <p class="section-sub">Escala de espaçamento em múltiplos de 4px, usada em padding de cards, células e containers.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div style="font-size:13px;font-weight:800;margin-bottom:14px;">Spacing scale</div>
+          <div class="space-row"><div class="label">xs · 4px</div><div class="bar" style="width:4px"></div></div>
+          <div class="space-row"><div class="label">sm · 8px</div><div class="bar" style="width:8px"></div></div>
+          <div class="space-row"><div class="label">md · 12px</div><div class="bar" style="width:12px"></div></div>
+          <div class="space-row"><div class="label">lg · 16px</div><div class="bar" style="width:16px"></div></div>
+          <div class="space-row"><div class="label">xl · 24px</div><div class="bar" style="width:24px"></div></div>
+          <div class="space-row"><div class="label">2xl · 40px</div><div class="bar" style="width:40px"></div></div>
+          <div class="usage-note">
+            <div class="icon">◆</div>
+            <div class="text"><b>40px</b> é usado como gap generoso entre blocos de conteúdo destacados.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:800;margin-bottom:14px;">Radius scale</div>
+          <div style="display:flex;gap:16px;align-items:flex-end;">
+            <div class="radius-box" style="border-radius:4px;">4px</div>
+            <div class="radius-box" style="border-radius:8px;">8px</div>
+            <div class="radius-box" style="border-radius:12px;">12px</div>
+            <div class="radius-box" style="border-radius:9999px;">pill</div>
+          </div>
+          <div class="usage-note">
+            <div class="icon">◆</div>
+            <div class="text">4-8px em tabelas/cards internos, 12px em cards de página, <b>pill</b> em badges e status pills.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BORDAS ── -->
+    <section id="bordas">
+      <h2 class="section-title">Bordas<span class="dot">.</span></h2>
+      <p class="section-sub">Espessura e cor variam conforme a hierarquia do elemento.</p>
+      <div class="card">
+        <div class="grid grid-3">
+          <div>
+            <div class="border-box" style="border:1px solid var(--border);border-radius:8px;">1px · border</div>
+            <div class="usage-note"><div class="text">Divisórias de linha em tabelas.</div></div>
+          </div>
+          <div>
+            <div class="border-box" style="border:2px solid var(--borderStrong);border-radius:8px;">2px · borderStrong</div>
+            <div class="usage-note"><div class="text">Abaixo do Cabeçalho e acima do Total Geral.</div></div>
+          </div>
+          <div>
+            <div class="border-box" style="border:1.5px solid var(--brandBlueSoftBorder);border-radius:8px;background:var(--brandBlueSoftBg);">1.5px · brandBlue/35%</div>
+            <div class="usage-note"><div class="text">Contorno do Total Banner isolado.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CABEÇALHO & RODAPÉ ── -->
+    <section id="cabecalho-rodape">
+      <h2 class="section-title">Cabeçalho & Rodapé<span class="dot">.</span></h2>
+      <p class="section-sub">Estrutura fixa presente em toda página de todo documento deste projeto.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div style="font-size:13px;font-weight:800;margin-bottom:10px;">Cabeçalho — colunas</div>
+          <table class="demo-table" style="font-size:11px;">
+            <tbody>
+              <tr><td style="font-weight:800;">Esquerda</td><td>Empresa, CNPJ, IE, etc.</td></tr>
+              <tr><td style="font-weight:800;">Direita</td><td>Código de Acesso, Período, Emissão</td></tr>
+            </tbody>
+          </table>
+          <div class="usage-note">
+            <div class="icon">◆</div>
+            <div class="text">Emissão traz data e hora juntas, sem separador de traço: <code class="tk">dd/mm/aaaa hh:mm:ss</code>.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:800;margin-bottom:10px;">Rodapé — colunas</div>
+          <table class="demo-table" style="font-size:11px;">
+            <tbody>
+              <tr><td style="font-weight:800;">Esquerda</td><td>Logo BHub + "powered by BHub"</td></tr>
+              <tr><td style="font-weight:800;">Direita</td><td>Página X de Y</td></tr>
+            </tbody>
+          </table>
+          <div class="usage-note">
+            <div class="icon">◆</div>
+            <div class="text">O rodapé fica fixado ao final do container (margin-top: auto).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FORMATAÇÃO DE NÚMEROS ── -->
+    <section id="formatacao-numeros">
+      <h2 class="section-title">Formatação de Números<span class="dot">.</span></h2>
+      <p class="section-sub">Existem dois formatos válidos no sistema. O documento define qual usar conforme a natureza do dado — nem todo relatório contábil possui valores monetários.</p>
+      <div class="card">
+        <div class="grid grid-2">
+          <div>
+            <div class="badge new">Monetário — <code class="tk" style="margin-left:4px;">brl</code></div>
+            <pre class="code-block" style="margin-top:10px;"><span class="cm">// valores em moeda, com prefixo R$</span>
+R$ 12.405,70
+R$ 1.420,31</pre>
+            <div class="usage-note"><div class="text">Usado quando o dado representa um valor monetário — pagamentos, retenções, faturamento.</div></div>
+          </div>
+          <div>
+            <div class="badge new">Numeral — <code class="tk" style="margin-left:4px;">n2</code></div>
+            <pre class="code-block" style="margin-top:10px;"><span class="cm">// números sem prefixo de moeda</span>
+12.405,70
+1.420,31</pre>
+            <div class="usage-note"><div class="text">Usado em documentos ou colunas contábeis que não representam moeda diretamente — bases de cálculo, percentuais, quantidades.</div></div>
+          </div>
+        </div>
+        <div class="usage-note" style="margin-top:14px;">
+          <div class="icon">◆</div>
+          <div class="text">Colunas opcionais como <b>SCP</b> exibem <code class="tk">0,00</code> quando vazias.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── LOGO ── -->
+    <section id="logo">
+      <h2 class="section-title">Logo BHub<span class="dot">.</span></h2>
+      <p class="section-sub">Componente oficial <code class="tk">LogoBHub</code>. Luiz Mendonça ou Elaine Calazans especificam variações de uso por documento.</p>
+
+      <div class="card" style="text-align:center;">
+        <svg width="72" height="72" viewBox="0 0 99.11 100.21" fill="none" style="border-radius:14px;">
+          <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+          <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+        </svg>
+        <div style="font-size:12px;font-weight:800;margin-top:10px;">LogoBHub</div>
+        <div style="font-size:11px;color:var(--textSecondary);font-weight:500;">Fundo #0f1726 · losango branco · viewBox 99.11×100.21</div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:800;margin-bottom:12px;">Componente</div>
+        <pre class="code-block"><span class="kw">function</span> LogoBHub({ size=<span class="st">13</span> }) {
+  <span class="kw">return</span> (
+    &lt;svg width={size} height={size} viewBox=<span class="st">"0 0 99.11 100.21"</span> fill=<span class="st">"none"</span>
+      style={{ display:<span class="st">"inline-block"</span>, verticalAlign:<span class="st">"middle"</span>, marginRight:<span class="st">4</span> }}&gt;
+      &lt;rect width=<span class="st">"99.11"</span> height=<span class="st">"100.21"</span> rx=<span class="st">"10"</span> fill=<span class="st">"#0f1726"</span>/&gt;
+      &lt;path fill=<span class="st">"#ffffff"</span> d=<span class="st">"..."</span>/&gt;
+    &lt;/svg&gt;
+  );
+}</pre>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:16px;">
+        <div class="card">
+          <div style="font-size:12px;font-weight:800;margin-bottom:10px;">Uso no Cabeçalho</div>
+          <pre class="code-block">&lt;div style={{ width:<span class="st">36</span>, height:<span class="st">36</span> }}&gt;
+  &lt;LogoBHub size={<span class="st">36</span>} /&gt;
+&lt;/div&gt;</pre>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:800;margin-bottom:10px;">Uso no Rodapé</div>
+          <pre class="code-block">&lt;span style={{ display:<span class="st">"flex"</span>, alignItems:<span class="st">"center"</span>, gap:<span class="st">4</span> }}&gt;
+  &lt;LogoBHub size={<span class="st">12</span>} /&gt;
+  powered by &lt;strong style={{ fontWeight:<span class="st">800</span> }}&gt;BHub&lt;/strong&gt;
+&lt;/span&gt;</pre>
+        </div>
+      </div>
+
+      <div class="usage-note" style="margin-top:16px;">
+        <div class="icon">◆</div>
+        <div class="text">Nos documentos, a logo exibida é a <b>logo da empresa</b> (cliente do relatório). A <code class="tk">LogoBHub</code> aparece como <b>default</b> nos casos em que a empresa não possui logo cadastrada.</div>
+      </div>
+    </section>
+
+    <!-- ── TOTALIZADORES ── -->
+    <section id="totalizadores">
+      <h2 class="section-title">Totalizadores<span class="dot">.</span></h2>
+      <p class="section-sub">Hierarquia visual clara entre total de fornecedor, total de imposto e total geral.</p>
+
+      <div class="card" style="display:flex;flex-direction:column;gap:1px;">
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--surfaceMuted);">
+          <span style="font-size:12px;font-weight:500;color:var(--textSecondary);">Total Fornecedor:</span>
+          <span style="font-size:12px;font-weight:800;">12.405,70</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--brandBlueSoftBg);border-top:2px solid var(--brandBlueSoftBorder);">
+          <span style="font-size:12px;font-weight:800;color:var(--brandBlue);">Total Imposto:</span>
+          <span style="font-size:13px;font-weight:900;color:var(--brandBlue);">12.405,70</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:12px 14px;background:var(--surfaceMuted);border-top:2px solid var(--borderStrong);">
+          <span style="font-size:13px;font-weight:900;">TOTAL GERAL:</span>
+          <span style="font-size:15px;font-weight:900;">12.405,70</span>
+        </div>
+      </div>
+      <div class="usage-note">
+        <div class="icon">◆</div>
+        <div class="text">Fundo neutro (<code class="tk">surface</code> ou <code class="tk">surfaceMuted</code>), borda superior forte de <code class="tk">borderStrong</code> e texto em peso 900.</div>
+      </div>
+    </section>
+
+    <!-- ── AGRUPAMENTOS ── -->
+    <section id="agrupamentos">
+      <h2 class="section-title">Agrupamentos de Tabela<span class="dot">.</span></h2>
+      <p class="section-sub">Dois níveis de agrupamento hierárquico, usados em Retenções a Recolher, DIFAL e Relatório de Faturamento.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="badge new">Nível 1</div>
+          <div class="usage-note" style="margin-top:10px;"><div class="text">Fundo <code class="tk">brandPinkSoft</code>, borda inferior 2px <code class="tk">brandPink</code>, texto <code class="tk">textPrimary</code> peso 800.</div></div>
+        </div>
+        <div class="card">
+          <div class="badge new">Nível 2</div>
+          <div class="usage-note" style="margin-top:10px;"><div class="text">Mesmo fundo, borda inferior 1px cinza. Código em <code class="tk">textSecondary</code> 800, nome em <code class="tk">brandPink</code> 700.</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:800;margin-bottom:12px;">Exemplo empilhado — Nível 1 → Nível 2 → dados → totais</div>
+        <div class="demo-frame">
+          <table class="demo-table">
+            <thead>
+              <tr><th style="width:45%">Fornecedor / Data</th><th style="text-align:right">Valor Base</th><th style="text-align:right">Imposto</th></tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="3" style="background:var(--brandPinkSoft);border-bottom:2px solid var(--brandPink);font-weight:800;">Imposto: 16 — IRRF</td></tr>
+              <tr><td colspan="3" style="background:var(--brandPinkSoft);border-bottom:1px solid var(--border);font-size:10px;"><span style="color:var(--textSecondary);font-weight:900;margin-right:8px;">20012</span><span style="color:var(--brandPink);font-weight:800;">FCAMARA CONSULTORIA LTDA</span></td></tr>
+              <tr><td style="color:var(--textSecondary);font-weight:500;">NF-e 61280 · 06/05/2026</td><td style="text-align:right;font-weight:700;">444.844,24</td><td style="text-align:right;font-weight:700;">6.672,66</td></tr>
+              <tr style="background:var(--surfaceMuted);"><td style="color:var(--textSecondary);font-weight:500;">NF-e 61670 · 29/05/2026</td><td style="text-align:right;font-weight:700;">382.202,65</td><td style="text-align:right;font-weight:700;">5.733,04</td></tr>
+              <tr><td style="text-align:right;color:var(--textSecondary);font-weight:800;">Total Fornecedor:</td><td colspan="2" style="text-align:right;font-weight:900;">12.405,70</td></tr>
+              <tr style="background:var(--brandBlueSoftBg);"><td style="font-weight:900;color:var(--brandBlue);border-top:2px solid var(--brandBlueSoftBorder);">Total IRRF:</td><td colspan="2" style="text-align:right;font-weight:900;color:var(--brandBlue);border-top:2px solid var(--brandBlueSoftBorder);">12.405,70</td></tr>
+              <tr style="background:var(--surfaceMuted);"><td style="font-weight:900;font-size:12px;border-top:2px solid var(--borderStrong);">TOTAL GERAL A RECOLHER:</td><td colspan="2" style="text-align:right;font-weight:900;font-size:14px;border-top:2px solid var(--borderStrong);">12.405,70</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="usage-note">
+          <div class="icon">◆</div>
+          <div class="text">Nível 1 (Imposto) contém um ou mais Nível 2 (Fornecedor), que por sua vez contêm as linhas de dados. Cada nível fecha com seu próprio total antes de subir para o total geral.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOTAL BANNER ── -->
+    <section id="banner">
+      <h2 class="section-title">Total Banner (isolado)<span class="dot">.</span></h2>
+      <p class="section-sub">Usado fora de tabelas, para destacar um valor único e importante — como DIFAL a recolher.</p>
+      <div class="card">
+        <div style="background:var(--brandBlueSoftBg);border:1.5px solid var(--brandBlueSoftBorder);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;font-weight:800;color:var(--brandBlue);">Diferencial de Alíquota a recolher</span>
+          <span style="font-size:15px;font-weight:800;color:var(--brandBlue);">1.420,31</span>
+        </div>
+        <div class="usage-note">
+          <div class="icon">◆</div>
+          <div class="text"><b>Utilizado em:</b> <span class="tag">DIFAL</span> — destaque de valor final fora do corpo da tabela.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BANIDOS ── -->
+    <section id="banidos">
+      <h2 class="section-title">Elementos Fora de Uso<span class="dot">.</span></h2>
+      <p class="section-sub">Componentes e valores que não aparecem nos documentos deste projeto.</p>
+      <div class="card">
+        <div class="banned-row">
+          <span class="name">&lt;SectionDivider /&gt;</span>
+          <span class="why">Substituído por <code class="tk">h2</code> centralizado.</span>
+        </div>
+        <div class="banned-row">
+          <span class="name">font-weight: 400 / 600</span>
+          <span class="why">Fora da escala tipográfica (500, 700, 800, 900).</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOKENS EM CÓDIGO ── -->
+    <section id="tokens-code">
+      <h2 class="section-title">Tokens (código)<span class="dot">.</span></h2>
+      <p class="section-sub">Estrutura de exports usada em todos os componentes TSX deste projeto.</p>
+      <div class="card">
+        <pre class="code-block"><span class="cm">// design-tokens.ts</span>
+<span class="kw">export const</span> colors = {
+  brandPink: <span class="st">"#f25461"</span>, brandPinkSoft: <span class="st">"#fde7ea"</span>,
+  brandPinkSoftBorder: <span class="st">"#f25461"</span>, brandBlue: <span class="st">"#0171e4"</span>,
+  textPrimary: <span class="st">"#18181b"</span>, textSecondary: <span class="st">"#52525b"</span>,
+  border: <span class="st">"#e4e4e7"</span>, borderStrong: <span class="st">"#d4d4d8"</span>,
+  surface: <span class="st">"#ffffff"</span>, surfaceMuted: <span class="st">"#f7f7f8"</span>,
+};
+
+<span class="kw">export const</span> typography = {
+  fontFamily: <span class="st">"'Nunito Sans', sans-serif"</span>,
+  weight: { label: <span class="st">500</span>, body: <span class="st">700</span>, title: <span class="st">800</span>, total: <span class="st">900</span> },
+  size: { xs: <span class="st">10</span>, sm: <span class="st">11</span>, md: <span class="st">13</span>, lg: <span class="st">15</span>, xl: <span class="st">18</span>, xxl: <span class="st">24</span> },
+};
+
+<span class="kw">export const</span> radius = { sm: <span class="st">4</span>, md: <span class="st">8</span>, lg: <span class="st">12</span>, pill: <span class="st">9999</span> };
+<span class="kw">export const</span> spacing = { xs: <span class="st">4</span>, sm: <span class="st">8</span>, md: <span class="st">12</span>, lg: <span class="st">16</span>, xl: <span class="st">24</span>, xxl: <span class="st">40</span> };
+<span class="kw">export const</span> borders = { thin: <span class="st">"1px"</span>, strong: <span class="st">"2px"</span> };</pre>
+      </div>
+    </section>
+
+    <!-- ── CHANGELOG / GOVERNANÇA ── -->
+    <section id="changelog">
+      <h2 class="section-title">Como este guia evolui<span class="dot">.</span></h2>
+      <p class="section-sub">Documento vivo, atualizado a cada novo relatório do projeto.</p>
+      <div class="card">
+        <div class="usage-note">
+          <div class="icon">◆</div>
+          <div class="text">
+            Componentes, cores ou padrões de layout criados para um relatório novo são incorporados a este guia.
+          </div>
+        </div>
+        <div class="usage-note" style="margin-top:10px;">
+          <div class="icon">◆</div>
+          <div class="text">Revisão incremental, com Luiz Mendonça e Elaine Calazans como responsáveis pela aprovação de mudanças.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>DRE — Demonstração do Resultado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461;
+    --brandPinkSoft:#fde7ea;
+    --brandBlue:#0171e4;
+    --textPrimary:#18181b;
+    --textSecondary:#52525b;
+    --border:#e4e4e7;
+    --borderStrong:#d4d4d8;
+    --surface:#ffffff;
+    --surfaceMuted:#f7f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:#f0f0f2;
+    font-family:'Nunito Sans', sans-serif;
+    padding:28px 20px;
+  }
+  .a4-card{
+    max-width:900px;
+    min-height:1100px;
+    margin:0 auto;
+    background:var(--surface);
+    border-radius:10px;
+    box-shadow:0 2px 16px rgba(0,0,0,0.08);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .cabecalho{
+    background:#fff;
+    border-bottom:2px solid var(--borderStrong);
+    padding:16px 24px 12px;
+  }
+  .cabecalho-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .cabecalho-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .cabecalho-brand-text .nome{
+    font-size:13px;
+    font-weight:800;
+    color:var(--textPrimary);
+  }
+  .cabecalho-brand-text .motor{
+    font-size:10px;
+    font-weight:500;
+    color:var(--textSecondary);
+  }
+  .cabecalho-titulo{
+    font-size:15px;
+    font-weight:800;
+    color:var(--textPrimary);
+    text-align:right;
+    text-transform:uppercase;
+  }
+  .cabecalho-divider{
+    border-top:1px solid var(--border);
+    margin-bottom:10px;
+  }
+  .cabecalho-meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3px 24px;
+    font-size:10px;
+    font-weight:500;
+  }
+  .cabecalho-meta span{color:var(--textSecondary);}
+  .cabecalho-meta span.right{text-align:right;}
+  .cabecalho-meta strong{color:var(--textPrimary); font-weight:700;}
+
+  .rodape{
+    border-top:1px solid var(--border);
+    padding:8px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:9px;
+    font-weight:500;
+    color:var(--textSecondary);
+    margin-top:auto;
+  }
+  .rodape-logo{
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .rodape-logo strong{
+    color:var(--textPrimary);
+    margin-left:3px;
+    font-weight:800;
+  }
+  .rodape-pagina{font-weight:700;}
+
+  .corpo{padding:16px 24px;}
+  .tabela-wrap{
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11px;
+  }
+  thead tr{background:var(--brandPink);}
+  thead th{
+    padding:8px 14px;
+    text-align:left;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    color:#fff;
+  }
+  thead th.valor{
+    text-align:right;
+    width:26%;
+  }
+  tbody td{
+    padding:5px 14px;
+    color:var(--textPrimary);
+    border-bottom:1px solid var(--border);
+    font-size:10px;
+    font-weight:500;
+  }
+  tbody td.valor{text-align:right; font-weight:600;}
+  tbody tr.total td{
+    padding:9px 14px;
+    font-size:11px;
+    font-weight:700;
+    border-top:2px solid var(--borderStrong);
+    background:var(--surfaceMuted);
+  }
+  tbody tr.total td.valor{font-size:12px;}
+  tbody tr.bold td{font-weight:700;}
+  tbody tr.bold td.valor{font-weight:700;}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor Contábil · DRE</div>
+    </div>
+  </div>
+</div>
+
+<div class="a4-card">
+  <div class="cabecalho">
+    <div class="cabecalho-top">
+      <div class="cabecalho-brand">
+        <div id="logo-header"></div>
+        <div class="cabecalho-brand-text">
+          <div class="nome">BHub</div>
+          <div class="motor">Motor Contábil</div>
+        </div>
+      </div>
+      <div class="cabecalho-titulo">DRE — Demonstração do Resultado</div>
+    </div>
+    <div class="cabecalho-divider"></div>
+    <div class="cabecalho-meta">
+      <span>Empresa: <strong>STORERAISER TECNOLOGIA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>40.168.889/0001-35</strong></span>
+      <span>Período: <strong>01/01/2025 a 31/12/2025</strong></span>
+      <span class="right">Emissão: <strong>31/12/2025 00:00:00</strong></span>
+    </div>
+  </div>
+
+  <div class="corpo">
+    <div class="tabela-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th class="valor">Saldo Atual</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-linhas"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="rodape-logo" id="logo-footer-wrap">powered by <strong>BHub</strong></span>
+    <span class="rodape-pagina">Página 1 de 1</span>
+  </div>
+</div>
+
+<script>
+const LOGO_SVG = (size) => `
+  <svg width="${size}" height="${size}" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+    <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+    <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+  </svg>`;
+
+document.getElementById('logo-header').outerHTML = `<div style="width:36px;height:36px;">${LOGO_SVG(36)}</div>`;
+document.getElementById('logo-footer-wrap').innerHTML = LOGO_SVG(12) + 'powered by <strong>BHub</strong>';
+
+const brl = v => v == null ? "—" : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+
+const LINHAS = [
+  {desc:"RECEITA BRUTA",val:3143050.52,nivel:0,bold:true,total:true},
+  {desc:"Receita de Prestação de Serviços",val:null,nivel:1},
+  {desc:"Serviços Prestados",val:3143050.52,nivel:2},
+  {desc:"(-) DEDUÇÕES DA RECEITA BRUTA",val:-518675.74,nivel:0,bold:true},
+  {desc:"(-) Simples Nacional",val:-518675.74,nivel:1},
+  {desc:"RECEITA LÍQUIDA",val:2624374.78,nivel:0,bold:true,total:true},
+  {desc:"CUSTOS",val:-1377094.79,nivel:0,bold:true},
+  {desc:"Serviços Prestados por Terceiros",val:-1377094.79,nivel:1},
+  {desc:"LUCRO BRUTO",val:1247279.99,nivel:0,bold:true,total:true},
+  {desc:"DESPESAS OPERACIONAIS",val:-959956.99,nivel:0,bold:true},
+  {desc:"Despesas com Vendas",val:-79829.36,nivel:1,bold:true},
+  {desc:"Despesa com Divulgação",val:-61134.65,nivel:2,bold:true},
+  {desc:"Despesa com Marketing",val:-61134.65,nivel:3},
+  {desc:"Despesa com Viagens",val:-18694.71,nivel:2,bold:true},
+  {desc:"Hospedagem",val:-3535.52,nivel:3},
+  {desc:"Passagens e Locomoções",val:-12145.94,nivel:3},
+  {desc:"Refeições",val:-3013.25,nivel:3},
+  {desc:"Despesas Administrativas",val:-880127.63,nivel:1,bold:true},
+  {desc:"Despesa com Pessoal",val:-81805.30,nivel:2,bold:true},
+  {desc:"Uniforme",val:-2112.00,nivel:3},
+  {desc:"Pró-labore",val:-36432.00,nivel:3},
+  {desc:"Assistência Médica",val:-43261.30,nivel:3},
+  {desc:"Despesas com Ocupação e Utilidades",val:-3955.00,nivel:2,bold:true},
+  {desc:"Aluguel",val:-3955.00,nivel:3},
+  {desc:"Material de Escritório",val:-882.16,nivel:2},
+  {desc:"Licença de Software",val:-258218.97,nivel:2},
+  {desc:"Assessoria Jurídica",val:-10707.56,nivel:2},
+  {desc:"Assessoria Contábil",val:-32182.36,nivel:2},
+  {desc:"Serviços de Consultoria",val:-18.13,nivel:2},
+  {desc:"Serviços de Terceiros - PJ",val:-485640.74,nivel:2},
+  {desc:"Correios e Similares",val:-517.75,nivel:2},
+  {desc:"Serviços Gráficos",val:-630.59,nivel:2},
+  {desc:"Despesas Tributárias",val:-5569.07,nivel:2,bold:true},
+  {desc:"Impostos Não Recuperáveis",val:-3975.60,nivel:3},
+  {desc:"IOF",val:-1432.11,nivel:3},
+  {desc:"Outros Tributos e Taxas",val:-161.36,nivel:3},
+  {desc:"RESULTADO FINANCEIRO",val:82853.29,nivel:0,bold:true,total:true},
+  {desc:"Despesas Financeiras",val:-2143.49,nivel:1,bold:true},
+  {desc:"Despesas Bancárias",val:-2136.47,nivel:2},
+  {desc:"Juros Passivos",val:-7.01,nivel:2},
+  {desc:"Receitas Financeiras",val:84996.78,nivel:1,bold:true},
+  {desc:"Aplicações Financeiras",val:80170.59,nivel:2},
+  {desc:"Juros Ativos",val:2497.76,nivel:2},
+  {desc:"Multas Ativas",val:2139.75,nivel:2},
+  {desc:"Descontos Obtidos",val:188.68,nivel:2},
+  {desc:"RESULTADO OPERACIONAL",val:370176.29,nivel:0,bold:true,total:true},
+  {desc:"LUCRO LÍQUIDO DO EXERCÍCIO",val:370176.29,nivel:0,bold:true,total:true},
+];
+
+const tbody = document.getElementById('tbody-linhas');
+LINHAS.forEach(r => {
+  const tr = document.createElement('tr');
+  if (r.total) tr.classList.add('total');
+  else if (r.bold) tr.classList.add('bold');
+
+  const tdDesc = document.createElement('td');
+  tdDesc.style.paddingLeft = (14 + r.nivel * 16) + 'px';
+  tdDesc.textContent = r.desc;
+
+  const tdVal = document.createElement('td');
+  tdVal.classList.add('valor');
+  tdVal.textContent = r.val != null ? (r.val < 0 ? `(${brl(-r.val)})` : brl(r.val)) : "";
+
+  tr.appendChild(tdDesc);
+  tr.appendChild(tdVal);
+  tbody.appendChild(tr);
+});
+</script>
+
+</body>
+</html>

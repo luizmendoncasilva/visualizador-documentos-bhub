@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Relatórios · Autopilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:       #f25461;
+    --pink-soft:  #fde7ea;
+    --pink-mid:   #f9c5cb;
+    --surface:    #ffffff;
+    --ground:     #f4f4f6;
+    --ink:        #18181b;
+    --ink-2:      #52525b;
+    --ink-3:      #a1a1aa;
+    --border:     #e4e4e7;
+    --border-2:   #d4d4d8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Nunito Sans', system-ui, sans-serif;
+    background: var(--ground);
+    color: var(--ink);
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* Topbar — idêntica em todas as páginas do projeto */
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-0.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;}
+  .bh-topbar-action{
+    margin-left:auto;
+    display:flex;align-items:center;gap:7px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    color:#fff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:800;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background .15s;
+  }
+  .bh-topbar-action:hover{background:rgba(255,255,255,0.16);}
+  .bh-topbar-action svg{flex-shrink:0;width:15px;height:15px;}
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 64px 40px 100px;
+  }
+
+  .header {
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--pink);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .section { margin-bottom: 44px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    flex: 1;
+    min-width: 180px;
+    max-width: 250px;
+    color: var(--ink);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .18s, box-shadow .18s, transform .15s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--pink-soft) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .card:hover {
+    border-color: var(--pink-mid);
+    box-shadow: 0 4px 20px rgba(242,84,97,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    transform: translateY(-2px);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--pink-soft);
+    color: var(--pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: background .18s;
+  }
+
+  .card:hover .card-icon { background: var(--pink-mid); }
+  .card-icon svg { width: 17px; height: 17px; }
+
+  .card-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Autopilot · Visão do Operador</div>
+    </div>
+  </div>
+  <a class="bh-topbar-action" href="bhub_style_guide.html">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" /></svg>
+    Style guide
+  </a>
+</div>
+
+<div class="page">
+
+  <header class="header">
+    <div class="eyebrow">Autopilot · Visão do Operador</div>
+    <h1>Relatórios</h1>
+  </header>
+
+  <!-- Departamento Pessoal -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Departamento Pessoal</span>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards">
+      <a class="card" href="holerite.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+        </div>
+        <span class="card-name">Holerite</span>
+      </a>
+      <a class="card" href="relacao_de_liquidos.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+        </div>
+        <span class="card-name">Relação de líquidos</span>
+      </a>
+      <a class="card" href="extrato_mensal.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+        </div>
+        <span class="card-name">Extrato mensal</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Relatórios Fiscais -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Relatórios Fiscais</span>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards">
+      <a class="card" href="faturamento_v3.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg>
+        </div>
+        <span class="card-name">Faturamento</span>
+      </a>
+      <a class="card" href="difal.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+        </div>
+        <span class="card-name">DIFAL</span>
+      </a>
+      <a class="card" href="retencoes_a_recolher.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+        </div>
+        <span class="card-name">Retenções a recolher</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Relatórios Contábeis -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Relatórios Contábeis</span>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards">
+      <a class="card" href="razao.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+        </div>
+        <span class="card-name">Razão</span>
+      </a>
+      <a class="card" href="Balancete.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" /></svg>
+        </div>
+        <span class="card-name">Balancete</span>
+      </a>
+      <a class="card" href="Balanco_Patrimonial.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" /></svg>
+        </div>
+        <span class="card-name">Balanço patrimonial</span>
+      </a>
+      <a class="card" href="DRE.html">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+        </div>
+        <span class="card-name">DRE</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

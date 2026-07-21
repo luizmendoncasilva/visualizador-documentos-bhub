@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Balancete de Verificação</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800;900&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    background: #ebebed;
+    padding: 40px 20px;
+  }
+  .a4-page {
+    background: #ffffff;
+    width: 100%;
+    max-width: 900px;
+    min-height: 1100px;
+    margin: 0 auto 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+  }
+  .cabecalho {
+    background: #fff;
+    border-bottom: 2px solid #d4d4d8;
+    padding: 16px 24px 12px;
+  }
+  .cabecalho-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-box { width: 36px; height: 36px; }
+  .brand-name { font-size: 13px; font-weight: 800; color: #18181b; }
+  .brand-sub { font-size: 10px; font-weight: 500; color: #52525b; }
+  .doc-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #18181b;
+    text-align: right;
+    text-transform: uppercase;
+  }
+  .cabecalho-divider { border-top: 1px solid #e4e4e7; margin-bottom: 10px; }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 24px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .meta-grid span { color: #52525b; }
+  .meta-grid span.right { text-align: right; }
+  .meta-grid strong { color: #18181b; font-weight: 700; }
+
+  .content { padding: 24px; }
+  .table-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e4e4e7;
+    margin-bottom: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 10px; }
+  thead tr { background: #f25461; }
+  th {
+    padding: 7px 10px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-align: left;
+  }
+  th.right { text-align: right; }
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e4e4e7;
+    color: #52525b;
+    font-weight: 500;
+  }
+  td.right { text-align: right; font-weight: 700; }
+  tr.odd { background: #f7f7f8; }
+  tr.even { background: #ffffff; }
+  tr.bold td { color: #18181b; font-weight: 800; }
+  tr.bold td.right { font-weight: 800; }
+
+  .rodape {
+    border-top: 1px solid #e4e4e7;
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 500;
+    color: #52525b;
+    margin-top: auto;
+  }
+  .rodape-logo { display: flex; align-items: center; gap: 4px; }
+  .rodape-logo strong { color: #18181b; margin-left: 3px; font-weight: 800; }
+  .rodape-pag { font-weight: 700; }
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-40px -20px 24px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor Contábil · Balancete</div>
+    </div>
+  </div>
+</div>
+
+<div class="a4-page">
+
+  <div class="cabecalho">
+    <div class="cabecalho-top">
+      <div class="logo-area">
+        <div class="logo-box">
+          <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;">
+            <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+            <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">BHub</div>
+          <div class="brand-sub">Motor Contábil</div>
+        </div>
+      </div>
+      <div class="doc-title">BALANCETE DE VERIFICAÇÃO</div>
+    </div>
+    <div class="cabecalho-divider"></div>
+    <div class="meta-grid">
+      <span>Empresa: <strong>STORERAISER TECNOLOGIA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>40.168.889/0001-35</strong></span>
+      <span>Período: <strong>01/01/2025 a 31/12/2025</strong></span>
+      <span class="right">Emissão: <strong>31/12/2025 23:59:59</strong></span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:10%">Código</th>
+            <th style="width:30%">Descrição</th>
+            <th class="right" style="width:15%">Saldo Ant.</th>
+            <th class="right" style="width:13%">Débito</th>
+            <th class="right" style="width:13%">Crédito</th>
+            <th class="right" style="width:19%">Saldo Atual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="even bold"><td>1</td><td>ATIVO</td><td class="right">1.811.992,64 D</td><td class="right">8.215.180,50</td><td class="right">7.820.705,83</td><td class="right">2.206.467,31 D</td></tr>
+          <tr class="odd"><td>1.1</td><td>ATIVO CIRCULANTE</td><td class="right">1.811.992,64 D</td><td class="right">8.215.180,50</td><td class="right">7.820.705,83</td><td class="right">2.206.467,31 D</td></tr>
+          <tr class="even"><td>1.1.01</td><td>Disponível</td><td class="right">826.821,32 D</td><td class="right">4.284.693,10</td><td class="right">4.504.791,42</td><td class="right">606.723,00 D</td></tr>
+          <tr class="odd"><td>1.1.02</td><td>Clientes</td><td class="right">106.208,33 D</td><td class="right">3.239.808,16</td><td class="right">3.187.643,21</td><td class="right">158.373,28 D</td></tr>
+          <tr class="even"><td>1.1.03</td><td>Outros Créditos</td><td class="right">878.962,99 D</td><td class="right">690.679,24</td><td class="right">128.271,20</td><td class="right">1.441.371,03 D</td></tr>
+
+          <tr class="odd bold"><td>2</td><td>PASSIVO</td><td class="right">1.811.992,64 C</td><td class="right">3.896.295,85</td><td class="right">3.920.594,23</td><td class="right">1.836.291,02 C</td></tr>
+          <tr class="even"><td>2.1</td><td>PASSIVO CIRCULANTE</td><td class="right">48.059,00 C</td><td class="right">3.012.519,56</td><td class="right">3.036.817,94</td><td class="right">72.357,38 C</td></tr>
+          <tr class="odd"><td>2.1.01</td><td>Obrigações Trabalhistas</td><td class="right">310,64 C</td><td class="right">40.416,20</td><td class="right">40.439,52</td><td class="right">333,96 C</td></tr>
+          <tr class="even"><td>2.1.02</td><td>Fornecedores</td><td class="right">27.305,13 C</td><td class="right">2.059.379,11</td><td class="right">2.065.702,02</td><td class="right">33.628,04 C</td></tr>
+          <tr class="odd"><td>2.1.04</td><td>Obrigações Tributárias</td><td class="right">20.443,23 C</td><td class="right">502.839,55</td><td class="right">520.791,70</td><td class="right">38.395,38 C</td></tr>
+          <tr class="even"><td>2.2</td><td>PASSIVO LONGO PRAZO</td><td class="right">2.409.999,98 C</td><td class="right">0,00</td><td class="right">256.800,00</td><td class="right">2.666.799,98 C</td></tr>
+          <tr class="odd"><td>2.3</td><td>PATRIMÔNIO LÍQUIDO</td><td class="right">646.066,34 D</td><td class="right">883.776,29</td><td class="right">626.976,29</td><td class="right">902.866,34 D</td></tr>
+
+          <tr class="even bold"><td>3</td><td>RECEITAS</td><td class="right">0,00 C</td><td class="right">566.574,95</td><td class="right">3.190.949,73</td><td class="right">2.624.374,78 C</td></tr>
+          <tr class="odd"><td>3.1.01</td><td>Receita Bruta de Vendas</td><td class="right">0,00 C</td><td class="right">47.623,33</td><td class="right">3.190.673,85</td><td class="right">3.143.050,52 C</td></tr>
+          <tr class="even"><td>3.1.02</td><td>(-) Deduções</td><td class="right">0,00 D</td><td class="right">518.675,74</td><td class="right">0,00</td><td class="right">518.675,74 D</td></tr>
+
+          <tr class="odd bold"><td>4</td><td>CUSTOS E DESPESAS</td><td class="right">0,00 D</td><td class="right">2.648.955,10</td><td class="right">394.756,61</td><td class="right">2.254.198,49 D</td></tr>
+          <tr class="even"><td>4.1</td><td>Custos</td><td class="right">0,00 D</td><td class="right">1.400.895,15</td><td class="right">23.800,36</td><td class="right">1.377.094,79 D</td></tr>
+          <tr class="odd"><td>4.2.01</td><td>Despesas Comerciais</td><td class="right">0,00 D</td><td class="right">80.105,24</td><td class="right">275,88</td><td class="right">79.829,36 D</td></tr>
+          <tr class="even"><td>4.2.02</td><td>Despesas Administrativas</td><td class="right">0,00 D</td><td class="right">1.157.951,35</td><td class="right">283.392,79</td><td class="right">874.558,56 D</td></tr>
+          <tr class="odd"><td>4.2.04</td><td>Resultado Financeiro</td><td class="right">0,00 C</td><td class="right">2.282,16</td><td class="right">85.135,45</td><td class="right">82.853,29 C</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="rodape-logo">
+      <svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+        <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+        <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+      </svg>
+      powered by <strong>BHub</strong>
+    </span>
+    <span class="rodape-pag">Página 1 de 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

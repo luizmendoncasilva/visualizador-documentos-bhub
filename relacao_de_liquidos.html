@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relação Geral dos Líquidos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461; --brandPinkSoft:#fde7ea; --brandBlue:#0171e4;
+    --textPrimary:#18181b; --textSecondary:#52525b;
+    --border:#e4e4e7; --borderStrong:#d4d4d8; --surface:#ffffff; --surfaceMuted:#f7f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f0f0f2;font-family:'Nunito Sans',sans-serif;padding:28px 20px;}
+  .shell{max-width:900px;margin:0 auto;background:var(--surface);border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.08);overflow:hidden;}
+
+  .cab{background:#fff;border-bottom:2px solid var(--borderStrong);padding:16px 24px 12px;}
+  .cabTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cabLogo{display:flex;align-items:center;gap:10px;}
+  .bhName{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .bhSub{font-size:10px;font-weight:500;color:var(--textSecondary);}
+  .cabTitulo{font-size:15px;font-weight:800;color:var(--textPrimary);text-align:right;text-transform:uppercase;}
+  .cabDivider{border-top:1px solid var(--border);margin-bottom:10px;}
+  .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
+  .metaGrid span{color:var(--textSecondary);font-weight:500;}
+  .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .right{text-align:right;}
+
+  .body{padding:16px 24px;}
+  .tableWrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;font-size:10px;}
+  thead th{padding:7px 10px;background:var(--brandPink);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;}
+  th.left,td.left{text-align:left;}
+  th.right,td.right{text-align:right;}
+
+  tr.grupo td{background:var(--brandPinkSoft);border-bottom:2px solid var(--brandPink);padding:7px 10px;font-weight:800;font-size:11px;color:var(--textPrimary);}
+  tr.even td{background:var(--surface);}
+  tr.odd td{background:var(--surfaceMuted);}
+  tbody td{padding:6px 10px;border-bottom:1px solid var(--border);}
+  .cod,.nome{color:var(--textSecondary);font-weight:500;}
+  .valor{color:var(--textPrimary);font-weight:700;}
+
+  tr.subtotal td{background:var(--surfaceMuted);border-bottom:1px solid var(--border);border-top:1.5px solid var(--borderStrong);padding:7px 10px;font-size:10px;}
+  .subtotalLabel{font-weight:700;color:var(--textSecondary);}
+  .subtotalValor{font-weight:700;color:var(--textPrimary);}
+
+  tr.totalGeral td{background:var(--surface);border-top:2px solid var(--borderStrong);padding:12px 10px;font-size:12px;font-weight:900;color:var(--textPrimary);}
+
+  .resumo{margin-top:32px;display:flex;justify-content:space-between;font-size:10px;color:var(--textSecondary);font-weight:500;}
+  .resumo strong{color:var(--textPrimary);font-weight:700;}
+  .resumo .linha{margin-bottom:4px;}
+  .assinaturaBox{text-align:right;}
+  .assinaturaRow{margin-bottom:16px;display:flex;align-items:center;gap:8px;justify-content:flex-end;}
+  .assinaturaLinha{width:160px;border-bottom:1px solid var(--textPrimary);}
+
+  .rodape{border-top:1px solid var(--border);padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--textSecondary);}
+  .rodape .brand{display:flex;align-items:center;gap:4px;font-weight:500;}
+  .rodape strong{color:var(--textPrimary);margin-left:3px;font-weight:700;}
+  .rodape .pag{font-weight:700;}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor DP · Relação de Líquidos</div>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">RELAÇÃO GERAL DOS LÍQUIDOS</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>EMPRESA EXEMPLO LTDA</strong></span>
+      <span class="right">CNPJ: <strong>12.345.678/0001-99</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>04/2025</strong></span>
+      <span></span>
+      <span class="right">Emissão: <strong>22/05/2026 10:30:00</strong></span>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:15%">Cód.</th>
+            <th class="left">Nome do Empregado</th>
+            <th class="right" style="width:22%">Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grupo"><td colspan="3">Empregados</td></tr>
+          <tr class="even"><td class="cod">001</td><td class="nome">ANA CAROLINA SOUZA FERREIRA</td><td class="right valor">R$ 3.850,00</td></tr>
+          <tr class="odd"><td class="cod">002</td><td class="nome">BRUNO HENRIQUE LIMA SANTOS</td><td class="right valor">R$ 4.200,00</td></tr>
+          <tr class="even"><td class="cod">003</td><td class="nome">CARLA MENDES DE OLIVEIRA</td><td class="right valor">R$ 2.980,50</td></tr>
+          <tr class="odd"><td class="cod">004</td><td class="nome">DIEGO ALVES PEREIRA</td><td class="right valor">R$ 5.100,00</td></tr>
+          <tr class="even"><td class="cod">005</td><td class="nome">FERNANDA COSTA RODRIGUES</td><td class="right valor">R$ 3.650,75</td></tr>
+          <tr class="odd"><td class="cod">006</td><td class="nome">GUSTAVO HENRIQUE BARBOSA</td><td class="right valor">R$ 4.780,00</td></tr>
+          <tr class="even"><td class="cod">007</td><td class="nome">HELENA VIEIRA DOS SANTOS</td><td class="right valor">R$ 3.420,00</td></tr>
+          <tr class="odd"><td class="cod">008</td><td class="nome">IGOR MENDONÇA CARVALHO</td><td class="right valor">R$ 5.600,00</td></tr>
+          <tr class="even"><td class="cod">009</td><td class="nome">JULIANA PIRES ALENCAR</td><td class="right valor">R$ 3.900,00</td></tr>
+          <tr class="odd"><td class="cod">010</td><td class="nome">LUCAS EDUARDO FONSECA</td><td class="right valor">R$ 4.350,00</td></tr>
+          <tr class="subtotal"><td colspan="2" class="right subtotalLabel">Total Empregados:</td><td class="right subtotalValor">R$ 41.831,25</td></tr>
+
+          <tr class="grupo"><td colspan="3">Estagiários</td></tr>
+          <tr class="even"><td class="cod">101</td><td class="nome">GABRIEL NASCIMENTO TEIXEIRA</td><td class="right valor">R$ 1.200,00</td></tr>
+          <tr class="odd"><td class="cod">102</td><td class="nome">ISABELA MARTINS FREITAS</td><td class="right valor">R$ 1.100,00</td></tr>
+          <tr class="even"><td class="cod">103</td><td class="nome">KEVIN ALMEIDA SOUZA</td><td class="right valor">R$ 1.050,00</td></tr>
+          <tr class="odd"><td class="cod">104</td><td class="nome">LARISSA DUARTE CAMPOS</td><td class="right valor">R$ 1.300,00</td></tr>
+          <tr class="subtotal"><td colspan="2" class="right subtotalLabel">Total Estagiários:</td><td class="right subtotalValor">R$ 4.650,00</td></tr>
+
+          <tr class="grupo"><td colspan="3">Contribuintes</td></tr>
+          <tr class="even"><td class="cod">201</td><td class="nome">JOÃO PAULO RIBEIRO</td><td class="right valor">R$ 6.500,00</td></tr>
+          <tr class="odd"><td class="cod">202</td><td class="nome">MARIANA LOPES CORREIA</td><td class="right valor">R$ 7.200,00</td></tr>
+          <tr class="even"><td class="cod">203</td><td class="nome">NELSON FARIAS BRAGA</td><td class="right valor">R$ 5.800,00</td></tr>
+          <tr class="subtotal"><td colspan="2" class="right subtotalLabel">Total Contribuintes:</td><td class="right subtotalValor">R$ 19.500,00</td></tr>
+
+          <tr class="totalGeral"><td colspan="2" class="right">TOTAL DA EMPRESA:</td><td class="right">R$ 65.981,25</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="resumo">
+      <div>
+        <div class="linha">Empregados: <strong>10</strong></div>
+        <div class="linha">Estagiários: <strong>4</strong></div>
+        <div>Contribuintes: <strong>3</strong></div>
+      </div>
+      <div class="assinaturaBox">
+        <div class="assinaturaRow">
+          <span>22/05/2026</span>
+          <span>Responsável:</span>
+          <div class="assinaturaLinha"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand">
+      <svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+      powered by <strong>BHub</strong>
+    </span>
+    <span class="pag">Página 1 de 1</span>
+  </div>
+</div>
+
+</body>
+</html>

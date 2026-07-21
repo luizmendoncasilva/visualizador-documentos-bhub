@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Extrato Mensal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461; --brandPinkSoft:#fde7ea; --brandBlue:#0171e4;
+    --textPrimary:#18181b; --textSecondary:#52525b;
+    --border:#e4e4e7; --borderStrong:#d4d4d8; --surface:#ffffff; --surfaceMuted:#f7f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f0f0f2;font-family:'Nunito Sans',sans-serif;padding:28px 20px;}
+  .page{width:794px;min-height:1123px;margin:0 auto 28px;background:var(--surface);border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.09);overflow:hidden;display:flex;flex-direction:column;}
+
+  .cab{background:#fff;border-bottom:2px solid var(--borderStrong);padding:16px 24px 12px;}
+  .cabTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cabLogo{display:flex;align-items:center;gap:10px;}
+  .bhName{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .bhSub{font-size:10px;font-weight:500;color:var(--textSecondary);}
+  .cabTitulo{font-size:15px;font-weight:800;color:var(--textPrimary);text-align:right;text-transform:uppercase;}
+  .cabDivider{border-top:1px solid var(--border);margin-bottom:10px;}
+  .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
+  .metaGrid span{color:var(--textSecondary);font-weight:500;}
+  .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .right{text-align:right;}
+
+  .content{padding:12px 20px;flex:1;}
+  .sectionTitle{font-weight:800;font-size:11px;color:var(--textPrimary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;}
+
+  /* Card colaborador */
+  .colabDivider{height:1px;background:var(--border);margin:10px 0;}
+  .colabCard{margin-bottom:14px;}
+  .colabTopWrap{border-radius:8px 8px 0 0;overflow:hidden;border:1px solid var(--border);border-bottom:none;}
+  .colabHeader{background:var(--brandPink);padding:5px 10px;display:flex;align-items:center;}
+  .colabNome{font-size:10px;font-weight:700;color:#fff;}
+  .colabSit{font-size:9px;color:rgba(255,255,255,.85);margin-left:8px;font-weight:500;}
+  .colabMeta{background:var(--surfaceMuted);padding:5px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px 12px;font-size:9px;}
+  .colabMeta .metaL{color:var(--textSecondary);font-weight:500;}
+  .colabMeta strong{color:var(--textPrimary);font-weight:700;}
+
+  .colabTableWrap{border-radius:0 0 8px 8px;overflow:hidden;border:1px solid var(--border);margin-bottom:5px;}
+  table.colabTable{width:100%;border-collapse:collapse;font-size:9px;table-layout:fixed;}
+  table.colabTable thead tr{background:var(--brandPinkSoft);}
+  table.colabTable thead th{padding:4px 6px;font-size:9px;font-weight:800;text-transform:uppercase;color:var(--brandPink);text-align:left;}
+  table.colabTable thead th.center{text-align:center;}
+  table.colabTable thead th.right{text-align:right;}
+  table.colabTable tbody td{padding:4px 6px;border-bottom:1px solid var(--border);}
+  table.colabTable tr.zebra1 td{background:var(--surface);}
+  table.colabTable tr.zebra2 td{background:var(--surfaceMuted);}
+  .sec{color:var(--textSecondary);font-weight:500;}
+  .prim{color:var(--textPrimary);font-weight:500;}
+  .prim700{color:var(--textPrimary);font-weight:700;}
+  .prim800{color:var(--textPrimary);font-weight:800;}
+  .center{text-align:center;}
+  .right{text-align:right;}
+
+  .colabFooterGrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+  .miniGrid4{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
+  .miniTotal{border:1px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--surfaceMuted);}
+  .miniTotal .l{font-size:8px;color:var(--textSecondary);text-transform:uppercase;font-weight:500;}
+  .miniTotal .v{font-size:11px;font-weight:800;color:var(--textPrimary);}
+
+  .divisorFino{display:flex;align-items:center;gap:12px;background:#ebebed;height:28px;padding:0 20px;margin:12px -20px;}
+  .divisorFino .linha{flex:1;height:1px;background:var(--borderStrong);}
+  .divisorFino span{font-size:10px;color:var(--textSecondary);white-space:nowrap;font-weight:500;}
+
+  .tableWrap{border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:10px;}
+  table{width:100%;border-collapse:collapse;font-size:10px;}
+  thead th{padding:6px 10px;background:var(--brandPink);color:#fff;font-weight:700;text-align:left;}
+  thead th.center{text-align:center;}
+  thead th.right{text-align:right;}
+  tbody td{padding:5px 10px;border-bottom:1px solid var(--border);}
+  tr.zebra1 td{background:var(--surface);}
+  tr.zebra2 td{background:var(--surfaceMuted);}
+
+  .assinaturaFooter{display:flex;justify-content:center;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--textSecondary);}
+  .linhaAssinatura{border-bottom:1px solid var(--textPrimary);width:260px;}
+
+  .rodape{border-top:1px solid var(--border);padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--textSecondary);font-weight:500;}
+  .rodape .brand{display:flex;align-items:center;gap:4px;}
+  .rodape strong{color:var(--textPrimary);font-weight:700;margin-left:3px;}
+  .rodape .pag{font-weight:700;}
+
+  /* Totais da Folha — grupos e linhas 2/3-col */
+  .groupHead{background:var(--brandPink);padding:5px 12px;font-size:10px;font-weight:800;color:#fff;}
+  .row2{display:grid;grid-template-columns:1fr 160px 1fr 160px;padding:5px 12px;border-bottom:1px solid var(--border);font-size:10px;}
+  .row2.e{background:var(--surface);}
+  .row2.o{background:var(--surfaceMuted);}
+  .row2 .l{color:var(--textSecondary);font-weight:500;}
+  .row2 .l.pad{padding-left:16px;}
+  .row2 .v{color:var(--textPrimary);text-align:right;font-weight:700;}
+
+  .row3header{display:grid;grid-template-columns:1fr 160px 160px;padding:5px 12px;font-size:9px;background:var(--surfaceMuted);}
+  .row3header span{color:var(--textSecondary);font-weight:700;text-transform:uppercase;}
+  .row3header span.right{text-align:right;}
+  .row3{display:grid;grid-template-columns:1fr 160px 160px;padding:5px 12px;border-bottom:1px solid var(--border);font-size:10px;}
+  .row3.e{background:var(--surface);}
+  .row3.o{background:var(--surfaceMuted);}
+  .row3 .l{color:var(--textSecondary);}
+  .row3 .v{color:var(--textPrimary);text-align:right;font-weight:700;}
+
+  .banner{background:rgba(1,113,228,.08);border:1.5px solid rgba(1,113,228,.35);border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+  .banner .label{font-size:11px;font-weight:800;color:var(--brandBlue);}
+  .banner .value{font-size:14px;font-weight:800;color:var(--brandBlue);}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor DP · Extrato Mensal</div>
+    </div>
+  </div>
+</div>
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">EXTRATO MENSAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PRISCILA NORONHA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>53.318.420/0001-87</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>06/2026</strong></span>
+      <span>Período: <strong>01/06/2026 a 30/06/2026</strong></span>
+      <span class="right">Emissão: <strong>18/06/2026 07:51:56</strong></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0001 — ADRIANO SOUZA NASCIMENTO</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>049.287.303-80</strong></span><span><span class="metaL">Admissão: </span><strong>27/03/2026</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>SERVICOS GERAIS</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 1.636,50</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 1.636,50</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">7.6%</td><td class="right prim700">R$ 124,52</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 124,52</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 1.511,98</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 1.511,98</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0002 — ANA KARINE PAULINO GADELHA</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>065.045.393-08</strong></span><span><span class="metaL">Admissão: </span><strong>10/03/2026</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>VENDEDOR(A)</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 1.636,50</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 1.636,50</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">7.6%</td><td class="right prim700">R$ 124,52</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 124,52</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 1.511,98</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 1.511,98</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 1.636,50</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0003 — ANA SOUZA</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>119.251.667-24</strong></span><span><span class="metaL">Admissão: </span><strong>03/01/2022</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>Analista</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 3.000,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 3.000,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">8.4%</td><td class="right prim700">R$ 253,41</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">Tabela</td><td class="right prim700">R$ 36,55</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 289,96</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 2.710,04</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 2.746,59</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div>
+    
+  </div>
+  <div style="padding:0 20px;"><div class="assinaturaFooter">
+    <span>SAO PAULO, 18/06/2026</span>
+    <span>Responsável:</span>
+    <div class="linhaAssinatura"></div>
+  </div></div>
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 1 de 6</span>
+  </div>
+</div>
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">EXTRATO MENSAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PRISCILA NORONHA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>53.318.420/0001-87</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>06/2026</strong></span>
+      <span>Período: <strong>01/06/2026 a 30/06/2026</strong></span>
+      <span class="right">Emissão: <strong>18/06/2026 07:51:56</strong></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0004 — ARTHUR ALVES LIMA</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>568.152.248-21</strong></span><span><span class="metaL">Admissão: </span><strong>03/11/2025</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>AUXILIAR DE LOJA</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 2.120,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 2.120,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">7.9%</td><td class="right prim700">R$ 168,03</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 2.120,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 168,03</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 1.951,97</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 1.951,97</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 2.120,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 2.120,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0005 — BRUNO LIMA</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>995.958.600-69</strong></span><span><span class="metaL">Admissão: </span><strong>03/01/2022</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>Assistente</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 3.000,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 3.000,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">8.4%</td><td class="right prim700">R$ 253,41</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">Tabela</td><td class="right prim700">R$ 36,55</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 289,96</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 2.710,04</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 2.746,59</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0006 — CARLA MENDES</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>345.814.518-41</strong></span><span><span class="metaL">Admissão: </span><strong>03/01/2022</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>Coordenadora</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 3.000,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 3.000,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">8.4%</td><td class="right prim700">R$ 253,41</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">Tabela</td><td class="right prim700">R$ 36,55</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 289,96</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 2.710,04</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 2.746,59</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 3.000,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div>
+    
+  </div>
+  <div style="padding:0 20px;"><div class="assinaturaFooter">
+    <span>SAO PAULO, 18/06/2026</span>
+    <span>Responsável:</span>
+    <div class="linhaAssinatura"></div>
+  </div></div>
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 2 de 6</span>
+  </div>
+</div>
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">EXTRATO MENSAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PRISCILA NORONHA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>53.318.420/0001-87</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>06/2026</strong></span>
+      <span>Período: <strong>01/06/2026 a 30/06/2026</strong></span>
+      <span class="right">Emissão: <strong>18/06/2026 07:51:56</strong></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0007 — GALBERTO VIANA AMORIM</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>358.449.653-53</strong></span><span><span class="metaL">Admissão: </span><strong>16/01/2026</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>MOTORISTA CAMINHÃO CARRETA</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 2.564,10</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 2.564,10</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">8.1%</td><td class="right prim700">R$ 208,00</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">Tabela</td><td class="right prim700">R$ 7,27</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 2.564,10</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 215,27</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 2.348,83</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 2.356,10</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 2.564,10</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 2.564,10</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0008 — WEBERTON BRANDAO GOMES</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>407.897.208-09</strong></span><span><span class="metaL">Admissão: </span><strong>21/09/2009</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>GERENTE DE LOJA</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 5.245,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 5.245,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">10.4%</td><td class="right prim700">R$ 543,90</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">Tabela</td><td class="right prim700">R$ 396,80</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 5.245,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 940,70</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 4.304,30</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 4.701,10</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 5.245,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 5.245,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div><div class="colabDivider"></div><div class="colabCard">
+      <div class="colabTopWrap">
+        <div class="colabHeader"><span class="colabNome">0009 — ALLAN SARMENTO SOARES</span><span class="colabSit">Trabalhando</span></div>
+        <div class="colabMeta"><span><span class="metaL">CPF: </span><strong>397.675.598-25</strong></span><span><span class="metaL">Admissão: </span><strong>22/05/2024</strong></span><span><span class="metaL">Vínculo: </span><strong>CLT</strong></span><span><span class="metaL">CC: </span><strong>—</strong></span><span><span class="metaL">Depto: </span><strong>—</strong></span><span><span class="metaL">Horas: </span><strong>—</strong></span><span><span class="metaL">Cargo: </span><strong>CAIXA</strong></span><span><span class="metaL">CBO: </span><strong>—</strong></span><span><span class="metaL">Filial: </span><strong>—</strong></span><span><span class="metaL">Sal.: </span><strong>R$ 2.387,00</strong></span><span><span class="metaL">Dep./f.: </span><strong>0</strong></span><span><span class="metaL">Dep./SF: </span><strong>0</strong></span></div>
+      </div>
+      <div class="colabTableWrap">
+        <table class="colabTable">
+          <thead><tr>
+            <th style="width:7%">Cód.</th><th class="center" style="width:5%">Tp</th><th style="width:33%">Descrição</th>
+            <th class="right" style="width:7%">Ref.</th><th class="right" style="width:13%">Valor</th>
+            <th class="center" style="width:5%">IN</th><th class="center" style="width:5%">FG</th><th class="center" style="width:5%">IR</th><th class="center" style="width:5%">IP</th><th class="center" style="width:5%">PIS</th>
+          </tr></thead>
+          <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">30</td><td class="right prim700">R$ 2.387,00</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contrib. Previdenciária do Empregado</td><td class="right sec">8%</td><td class="right prim700">R$ 192,06</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">8%</td><td class="right prim700"></td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+        </table>
+      </div>
+      <div class="colabFooterGrid">
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">PROVENTOS</div><div class="v">R$ 2.387,00</div></div><div class="miniTotal"><div class="l">VANTAGENS</div><div class="v">R$ 0,00</div></div><div class="miniTotal"><div class="l">DESCONTOS</div><div class="v">R$ 192,06</div></div><div class="miniTotal"><div class="l">LÍQUIDO</div><div class="v">R$ 2.194,94</div></div></div>
+        <div class="miniGrid4"><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IRRF</div><div class="v">R$ 2.194,94</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base INSS</div><div class="v">R$ 2.387,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base FGTS</div><div class="v">R$ 2.387,00</div></div><div class="miniTotal"><div class="l">Bases</div><div class="l">Base IPE</div><div class="v">R$ 0,00</div></div></div>
+      </div>
+    </div>
+    <div class="divisorFino"><div class="linha"></div><span>Resumo por Rubrica</span><div class="linha"></div></div>
+    <div class="tableWrap" style="margin-top:12px;">
+      <table>
+        <thead><tr>
+          <th>CÓD.</th><th class="center">TP</th><th style="width:38%">DESCRIÇÃO</th><th class="right">QTD</th><th class="right">TOTAL (R$)</th>
+          <th class="center">IN</th><th class="center">FG</th><th class="center">IR</th><th class="center">IP</th><th class="center">PIS</th>
+        </tr></thead>
+        <tbody><tr class="zebra1"><td class="sec">0001</td><td class="center prim700">P</td><td class="prim">SALÁRIO MENSAL</td><td class="right sec">40</td><td class="right prim700">R$ 76.249,49</td><td class="center">M</td><td class="center">M</td><td class="center">M</td><td class="center">—</td><td class="center">M</td></tr><tr class="zebra2"><td class="sec">0302</td><td class="center prim700">D</td><td class="prim">INSS - Contribuição Previdenciária do Empregado</td><td class="right sec">40</td><td class="right prim700">R$ 6.064,81</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra1"><td class="sec">0410</td><td class="center prim700">D</td><td class="prim">IRRF - Imposto de Renda Retido na Fonte</td><td class="right sec">5</td><td class="right prim700">R$ 513,72</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr><tr class="zebra2"><td class="sec">0300</td><td class="center prim700">I</td><td class="prim">FGTS do mês</td><td class="right sec">40</td><td class="right prim700">R$ 6.099,97</td><td class="center">—</td><td class="center">M</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+  <div style="padding:0 20px;"><div class="assinaturaFooter">
+    <span>SAO PAULO, 18/06/2026</span>
+    <span>Responsável:</span>
+    <div class="linhaAssinatura"></div>
+  </div></div>
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="display:inline-block;vertical-align:middle;margin-right:4px;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 3 de 6</span>
+  </div>
+</div>
+<!-- ══ Página 10: Totais da Folha + Situações ══ -->
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">EXTRATO MENSAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PRISCILA NORONHA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>53.318.420/0001-87</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>06/2026</strong></span>
+      <span>Período: <strong>01/06/2026 a 30/06/2026</strong></span>
+      <span class="right">Emissão: <strong>18/06/2026 07:51:56</strong></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="sectionTitle">Totais da Folha</div>
+
+    <div class="tableWrap">
+      <div class="groupHead">INSS</div>
+      <div class="row2 e"><span class="l">Salário contribuição empregados</span><span class="v">R$ 76.249,49</span><span class="l pad">Salário contribuição contribuintes</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o"><span class="l">Excedente</span><span class="v">R$ 0,00</span><span class="l pad">Base total</span><span class="v">R$ 76.249,49</span></div>
+      <div class="row2 e"><span class="l">Segurados</span><span class="v">R$ 6.064,81</span><span class="l pad">Empresa</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o"><span class="l">RAT</span><span class="v">R$ 0,00</span><span class="l pad">Contribuintes</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 e"><span class="l">Terceiros</span><span class="v">R$ 0,00</span><span class="l pad">Total INSS</span><span class="v">R$ 6.064,81</span></div>
+      <div class="row2 o"><span class="l">Base INSS Receita Bruta</span><span class="v">R$ 0,00</span><span class="l pad">(-) Salário família</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 e" style="border-bottom:none;"><span class="l">(-) Salário maternidade</span><span class="v">R$ 0,00</span><span class="l pad">Valores pagos a cooperativas</span><span class="v">R$ 0,00</span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">FGTS / PIS / ISS</div>
+      <div class="row2 e"><span class="l">Base FGTS</span><span class="v">R$ 76.249,49</span><span class="l pad">Valor FGTS</span><span class="v">R$ 6.099,97</span></div>
+      <div class="row2 o"><span class="l">Base FGTS Aprendiz</span><span class="v">R$ 0,00</span><span class="l pad">Valor FGTS Aprendiz</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 e"><span class="l">Base FGTS Rescisório</span><span class="v">R$ 0,00</span><span class="l pad">Valor FGTS Rescisório</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o"><span class="l">Base PIS</span><span class="v">R$ 0,00</span><span class="l pad">Valor PIS</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 e" style="border-bottom:none;"><span class="l">Base ISS</span><span class="v">R$ 0,00</span><span class="l pad">Valor ISS</span><span class="v">R$ 0,00</span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">IRRF — COMPETÊNCIA CÁLCULO / PAGAMENTO</div>
+      <div class="row3header"><span>Campo</span><span class="right">Comp. Cálculo</span><span class="right">Comp. Pagamento</span></div>
+      <div class="row3 e"><span class="l">Base IRRF Mensal</span><span class="v">R$ 70.184,68</span><span class="v">R$ 70.184,68</span></div>
+      <div class="row3 o"><span class="l">Valor IRRF Mensal</span><span class="v">R$ 513,72</span><span class="v">R$ 513,72</span></div>
+      <div class="row3 e"><span class="l">Base IRRF Férias</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 o"><span class="l">Valor IRRF Férias</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 e"><span class="l">Base IRRF Partic. Lucros</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 o"><span class="l">Valor IRRF Partic. Lucros</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 e"><span class="l">Base IRRF Exterior</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 o"><span class="l">Valor IRRF Exterior</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 e"><span class="l">Base IRRF 13º Salário</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 o"><span class="l">Valor IRRF 13º Salário</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 e"><span class="l">Valor Total IRRF</span><span class="v">R$ 513,72</span><span class="v">R$ 513,72</span></div>
+      <div class="row3 o"><span class="l">IRRF Aluguéis</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+      <div class="row3 e" style="border-bottom:none;"><span class="l">IRRF Contribuintes</span><span class="v">R$ 0,00</span><span class="v">R$ 0,00</span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">Provisão Férias</div>
+      <div class="row2 e"><span class="l">Valor</span><span class="v">R$ 0,00</span><span class="l pad">1/3</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o"><span class="l">INSS</span><span class="v">R$ 0,00</span><span class="l pad">FGTS</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 e" style="border-bottom:none;"><span class="l">PIS</span><span class="v">R$ 0,00</span><span class="l pad"></span><span class="v"></span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">Provisão 13º Salário</div>
+      <div class="row2 e"><span class="l">Valor</span><span class="v">R$ 0,00</span><span class="l pad">INSS</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o" style="border-bottom:none;"><span class="l">FGTS</span><span class="v">R$ 0,00</span><span class="l pad"></span><span class="v"></span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">GPS</div>
+      <div class="row2 e"><span class="l">Parte empresa</span><span class="v">R$ 0,00</span><span class="l pad">Terceiros</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o" style="border-bottom:none;"><span class="l">Acidente de trabalho</span><span class="v">R$ 0,00</span><span class="l pad">Convênios</span><span class="v">R$ 0,00</span></div>
+    </div>
+
+    <div class="tableWrap">
+      <div class="groupHead">IPE</div>
+      <div class="row2 e"><span class="l">IPE Mês</span><span class="v">R$ 0,00</span><span class="l pad">IPE Férias</span><span class="v">R$ 0,00</span></div>
+      <div class="row2 o" style="border-bottom:none;"><span class="l">IPE 13º</span><span class="v">R$ 0,00</span><span class="l pad"></span><span class="v"></span></div>
+    </div>
+
+    <div class="sectionTitle" style="margin-top:14px;">Situações</div>
+    <div class="tableWrap" style="width:40%;">
+      <table>
+        <thead><tr><th class="left">Situação</th><th class="right">Quantidade</th></tr></thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">Trabalhando</td><td class="right prim700">45</td></tr>
+          <tr class="zebra2"><td class="sec">Férias</td><td class="right prim700">0</td></tr>
+          <tr class="zebra1"><td class="sec">Demitido</td><td class="right prim700">0</td></tr>
+          <tr class="zebra2"><td class="sec">Afastado</td><td class="right prim700">0</td></tr>
+          <tr class="zebra1"><td class="prim700">Total</td><td class="right prim800">45</td></tr>
+          <tr class="zebra2"><td class="sec">Contribuintes individuais</td><td class="right prim700">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 5 de 6</span>
+  </div>
+</div>
+
+<!-- ══ Página 11: Resumo Geral da Empresa ══ -->
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor DP</div></div>
+      </div>
+      <div class="cabTitulo">EXTRATO MENSAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span>Empresa: <strong>PRISCILA NORONHA LTDA</strong></span>
+      <span class="right">CNPJ: <strong>53.318.420/0001-87</strong></span>
+      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
+      <span class="right">Competência: <strong>06/2026</strong></span>
+      <span>Período: <strong>01/06/2026 a 30/06/2026</strong></span>
+      <span class="right">Emissão: <strong>18/06/2026 07:51:56</strong></span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="sectionTitle">Resumo Geral da Empresa</div>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr style="background:var(--surfaceMuted);">
+            <th class="left" style="color:var(--textSecondary);font-weight:500;background:none;">Total Proventos</th>
+            <th class="left" style="color:var(--textSecondary);font-weight:500;background:none;">Total Vantagens</th>
+            <th class="left" style="color:var(--textSecondary);font-weight:500;background:none;">Total Descontos</th>
+            <th class="left" style="color:var(--textSecondary);font-weight:500;background:none;">Líquido</th>
+            <th class="left" style="color:var(--textSecondary);font-weight:500;background:none;">Total da Folha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--surface);border-top:2px solid var(--borderStrong);">
+            <td style="font-weight:800;font-size:12px;color:var(--textPrimary);">R$ 76.249,49</td>
+            <td style="font-weight:800;font-size:12px;color:var(--textPrimary);">R$ 0,00</td>
+            <td style="font-weight:800;font-size:12px;color:var(--textPrimary);">R$ 6.578,53</td>
+            <td style="font-weight:800;font-size:12px;color:var(--textPrimary);">R$ 69.670,96</td>
+            <td style="font-weight:800;font-size:12px;color:var(--textPrimary);">R$ 69.670,96</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="banner"><span class="label">Total da Folha</span><span class="value">R$ 69.670,96</span></div>
+  </div>
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 6 de 6</span>
+  </div>
+</div>
+
+</body>
+</html>

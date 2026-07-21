@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>DIFAL — Demonstrativo do Diferencial de Alíquota</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461; --brandPinkSoft:#fde7ea; --brandBlue:#0171e4;
+    --textPrimary:#18181b; --textSecondary:#52525b;
+    --border:#e4e4e7; --borderStrong:#d4d4d8; --surface:#ffffff; --surfaceMuted:#f7f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f0f0f2;font-family:'Nunito Sans',sans-serif;padding:40px 20px;}
+  .shell{width:100%;max-width:900px;min-height:1100px;margin:0 auto;background:var(--surface);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden;}
+
+  .cab{background:#fff;border-bottom:2px solid var(--borderStrong);padding:16px 24px 12px;}
+  .cabTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cabLogo{display:flex;align-items:center;gap:10px;}
+  .bhName{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .bhSub{font-size:10px;font-weight:500;color:var(--textSecondary);}
+  .cabTitulo{font-size:15px;font-weight:800;color:var(--textPrimary);text-align:right;text-transform:uppercase;max-width:400px;}
+  .cabDivider{border-top:1px solid var(--border);margin-bottom:10px;}
+  .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
+  .metaCol{display:flex;flex-direction:column;gap:3px;}
+  .metaCol.right{text-align:right;}
+  .metaCol .label{color:var(--textSecondary);font-weight:500;}
+  .metaCol strong{color:var(--textPrimary);font-weight:700;}
+
+  .content{padding:24px;}
+
+  /* Divisor de seção — visual aprovado: linha central sólida com label uppercase */
+  .divisor{display:flex;align-items:center;gap:10px;margin:24px 0 16px;}
+  .divisor:first-child{margin-top:0;}
+  .divisor .linha{flex:1;border-top:1.5px solid var(--borderStrong);}
+  .divisor .label{font-size:11px;font-weight:800;color:var(--textPrimary);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+
+  .tableWrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px;}
+  table{width:100%;border-collapse:collapse;font-size:11px;}
+  thead th{padding:8px 12px;background:var(--brandPink);font-size:10px;font-weight:800;text-transform:uppercase;color:#fff;}
+  th.left,td.left{text-align:left;}
+  th.center,td.center{text-align:center;}
+  th.right,td.right{text-align:right;}
+  tbody td{padding:8px 12px;border-bottom:1px solid var(--border);}
+  tr.zebra1 td{background:var(--surface);}
+  tr.zebra2 td{background:var(--surfaceMuted);}
+  .sec{color:var(--textSecondary);font-weight:500;}
+  .prim{color:var(--textPrimary);font-weight:700;}
+
+  tr.totalMov td{background:rgba(1,113,228,.08);border-top:2px solid rgba(1,113,228,.25);padding:10px 12px;font-weight:900;font-size:12px;color:var(--brandBlue);}
+  tr.totalGeral td{background:var(--surfaceMuted);border-top:2px solid var(--borderStrong);padding:12px;font-weight:900;color:var(--textPrimary);}
+  tr.totalGeral td:first-child{font-size:12px;}
+  tr.totalGeral td:not(:first-child){font-size:13px;}
+
+  .banner{background:rgba(1,113,228,.08);border:1.5px solid rgba(1,113,228,.35);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:16px;}
+  .banner .label{font-size:12px;font-weight:800;color:var(--brandBlue);}
+  .banner .value{font-size:15px;font-weight:800;color:var(--brandBlue);}
+
+  .rodape{border-top:1px solid var(--border);padding:10px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:500;color:var(--textSecondary);margin-top:auto;}
+  .rodape .brand{display:flex;align-items:center;gap:4px;}
+  .rodape strong{color:var(--textPrimary);margin-left:3px;font-weight:800;}
+  .rodape .pag{font-weight:700;}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-40px -20px 24px -20px;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor Fiscal · DIFAL</div>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#0f1726"/><path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor Fiscal</div></div>
+      </div>
+      <div class="cabTitulo">DEMONSTRATIVO DO DIFERENCIAL DE ALÍQUOTA</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <div class="metaCol">
+        <span><span class="label">Empresa: </span><strong>CICLO ORGANICO COMPOSTAGEM LTDA</strong></span>
+        <span><span class="label">CNPJ: </span><strong>23.100.685/0001-43</strong></span>
+        <span><span class="label">IE: </span><strong>123.456.789.000</strong></span>
+      </div>
+      <div class="metaCol right">
+        <span><span class="label">Competência: </span><strong>04/2026</strong></span>
+        <span><span class="label">Emissão: </span><strong>16/06/2026 11:27:08</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="divisor"><div class="linha"></div><span class="label">Débito pelas Entradas</span><div class="linha"></div></div>
+
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:13%">Documento</th>
+            <th class="center" style="width:5%">UF</th>
+            <th class="center" style="width:6%">CFOP</th>
+            <th class="left" style="width:9%">Data</th>
+            <th class="right" style="width:11%">Valor Contábil</th>
+            <th class="right" style="width:11%">Base de Cálculo</th>
+            <th class="right" style="width:8%">Alíquota</th>
+            <th class="right" style="width:11%">Valor do Imposto</th>
+            <th class="right" style="width:13%">Isentas</th>
+            <th class="right" style="width:13%">Outras</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">NF-e: 7</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">10/04/2026</td><td class="right prim">123,68</td><td class="right prim">152,22</td><td class="right sec">20,00</td><td class="right prim">25,50</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 8985</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">05/04/2026</td><td class="right prim">130,28</td><td class="right prim">146,98</td><td class="right sec">20,00</td><td class="right prim">13,77</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 12030</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">14/04/2026</td><td class="right prim">44,61</td><td class="right prim">50,33</td><td class="right sec">20,00</td><td class="right prim">4,72</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 15662</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">09/04/2026</td><td class="right prim">1.206,10</td><td class="right prim">1.360,73</td><td class="right sec">20,00</td><td class="right prim">127,42</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 19952</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">23/04/2026</td><td class="right prim">967,41</td><td class="right prim">1.091,44</td><td class="right sec">20,00</td><td class="right prim">102,20</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 20034</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">29/04/2026</td><td class="right prim">7.418,84</td><td class="right prim">8.369,97</td><td class="right sec">20,00</td><td class="right prim">783,73</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 24416</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">17/04/2026</td><td class="right prim">78,99</td><td class="right prim">89,12</td><td class="right sec">20,00</td><td class="right prim">8,34</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 46767</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">23/04/2026</td><td class="right prim">53,58</td><td class="right prim">60,45</td><td class="right sec">20,00</td><td class="right prim">5,66</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 70262</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">14/04/2026</td><td class="right prim">78,90</td><td class="right prim">89,02</td><td class="right sec">20,00</td><td class="right prim">8,33</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 86058</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">23/04/2026</td><td class="right prim">30,49</td><td class="right prim">34,40</td><td class="right sec">20,00</td><td class="right prim">3,22</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 86102</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">24/04/2026</td><td class="right prim">30,49</td><td class="right prim">34,40</td><td class="right sec">20,00</td><td class="right prim">3,22</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 126492</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">20/04/2026</td><td class="right prim">116,21</td><td class="right prim">131,11</td><td class="right sec">20,00</td><td class="right prim">12,27</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 126495</td><td class="center sec">SP</td><td class="center sec">2556</td><td class="sec">20/04/2026</td><td class="right prim">116,21</td><td class="right prim">131,11</td><td class="right sec">20,00</td><td class="right prim">12,27</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 137538</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">06/04/2026</td><td class="right prim">92,99</td><td class="right prim">0,00</td><td class="right sec">0,00</td><td class="right prim">0,00</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 219642</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">09/04/2026</td><td class="right prim">111,44</td><td class="right prim">125,73</td><td class="right sec">20,00</td><td class="right prim">11,78</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 220097</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">15/04/2026</td><td class="right prim">55,72</td><td class="right prim">62,86</td><td class="right sec">20,00</td><td class="right prim">5,88</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 337477</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">23/04/2026</td><td class="right prim">114,25</td><td class="right prim">128,90</td><td class="right sec">20,00</td><td class="right prim">12,07</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 338070</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">27/04/2026</td><td class="right prim">114,25</td><td class="right prim">128,90</td><td class="right sec">20,00</td><td class="right prim">12,07</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 410955</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">02/04/2026</td><td class="right prim">753,60</td><td class="right prim">927,51</td><td class="right sec">20,00</td><td class="right prim">155,36</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 645382</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">06/04/2026</td><td class="right prim">87,20</td><td class="right prim">107,32</td><td class="right sec">20,00</td><td class="right prim">17,98</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 645384</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">06/04/2026</td><td class="right prim">43,60</td><td class="right prim">53,66</td><td class="right sec">20,00</td><td class="right prim">8,99</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 1033097</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">07/04/2026</td><td class="right prim">57,59</td><td class="right prim">70,88</td><td class="right sec">20,00</td><td class="right prim">11,87</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 1307754</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">06/04/2026</td><td class="right prim">71,70</td><td class="right prim">80,41</td><td class="right sec">20,00</td><td class="right prim">13,47</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 2745096</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">23/04/2026</td><td class="right prim">78,99</td><td class="right prim">97,22</td><td class="right sec">20,00</td><td class="right prim">16,28</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 126496</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">20/04/2026</td><td class="right prim">116,21</td><td class="right prim">131,11</td><td class="right sec">20,00</td><td class="right prim">12,27</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">NF-e: 130161</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">20/04/2026</td><td class="right prim">149,70</td><td class="right prim">168,89</td><td class="right sec">20,00</td><td class="right prim">15,82</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">NF-e: 130163</td><td class="center sec">SP</td><td class="center sec">2557</td><td class="sec">20/04/2026</td><td class="right prim">149,70</td><td class="right prim">168,89</td><td class="right sec">20,00</td><td class="right prim">15,82</td><td class="right sec">0,00</td><td class="right sec">0,00</td></tr>
+
+          <tr class="totalMov"><td colspan="4">Total Entradas:</td><td class="right">11.932,64</td><td class="right">13.834,26</td><td class="right">—</td><td class="right">1.382,79</td><td class="right">0,00</td><td class="right">0,00</td></tr>
+          <tr class="totalGeral"><td colspan="4">TOTAL GERAL:</td><td class="right">11.932,64</td><td class="right">13.834,26</td><td class="right">—</td><td class="right">1.382,79</td><td class="right">0,00</td><td class="right">0,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divisor"><div class="linha"></div><span class="label">Apuração</span><div class="linha"></div></div>
+
+    <div class="tableWrap" style="margin-bottom:0;">
+      <table>
+        <thead>
+          <tr>
+            <th class="left">Descrição</th>
+            <th class="right" style="width:20%">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">Total de débitos</td><td class="right prim">1.382,79</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="banner">
+      <span class="label">Diferencial de Alíquota a recolher</span>
+      <span class="value">R$ 1.382,79</span>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand">
+      <svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#0f1726"/><path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+      powered by <strong>BHub</strong>
+    </span>
+    <span class="pag">Página 1 de 1</span>
+  </div>
+</div>
+
+</body>
+</html>

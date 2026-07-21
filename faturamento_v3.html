@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório de Faturamento</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
+<style>
+  :root{
+    --brandPink:#f25461; --brandPinkSoft:#fde7ea; --brandBlue:#0171e4;
+    --textPrimary:#18181b; --textSecondary:#52525b;
+    --border:#e4e4e7; --borderStrong:#d4d4d8; --surface:#ffffff; --surfaceMuted:#f7f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f0f0f2;font-family:'Nunito Sans',sans-serif;padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:40px;}
+  .page{width:100%;max-width:900px;min-height:1123px;background:var(--surface);border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.10);overflow:hidden;display:flex;flex-direction:column;}
+
+  .cab{background:#fff;border-bottom:2px solid var(--borderStrong);padding:16px 24px 12px;}
+  .cabTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .cabLogo{display:flex;align-items:center;gap:10px;}
+  .bhName{font-size:13px;font-weight:800;color:var(--textPrimary);}
+  .bhSub{font-size:10px;font-weight:500;color:var(--textSecondary);}
+  .cabTitulo{font-size:15px;font-weight:800;color:var(--textPrimary);text-align:right;text-transform:uppercase;}
+  .cabDivider{border-top:1px solid var(--border);margin-bottom:10px;}
+  .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
+  .metaGrid .label{color:var(--textSecondary);font-weight:500;}
+  .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .right{text-align:right;}
+
+  .content{padding:16px 24px;flex:1;}
+  h2.section{text-align:center;font-size:13px;font-weight:800;color:var(--textPrimary);text-transform:uppercase;letter-spacing:.08em;margin:4px 0 16px;}
+  h2.section.small{font-size:12px;letter-spacing:.06em;margin:0 0 10px;}
+
+  .tableWrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:10px;}
+  thead th{padding:6px 10px;background:var(--brandPink);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;}
+  th.left,td.left{text-align:left;}
+  th.right,td.right{text-align:right;}
+  th.center,td.center{text-align:center;}
+  tbody td{padding:6px 10px;border-bottom:1px solid var(--border);}
+  tr.zebra1 td{background:var(--surface);}
+  tr.zebra2 td{background:var(--surfaceMuted);}
+  .sec{color:var(--textSecondary);font-weight:500;}
+  .prim{color:var(--textPrimary);font-weight:700;}
+  .prim800{color:var(--textPrimary);font-weight:800;}
+  tr.boldRow td{background:var(--surface);border-top:2px solid var(--borderStrong);border-bottom:none;font-weight:800;color:var(--textPrimary);}
+
+  .infoBox{background:var(--surfaceMuted);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:10px;margin-bottom:12px;}
+  .infoBox div{margin-bottom:4px;}
+  .infoBox div:last-child{margin-bottom:0;}
+  .infoBox .label{color:var(--textSecondary);font-weight:500;}
+  .infoBox strong{color:var(--textPrimary);font-weight:700;}
+  .infoBox strong.medium{font-weight:500;}
+
+  .resumoFlex{background:var(--surfaceMuted);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:10px;margin-bottom:10px;display:flex;gap:24px;flex-wrap:wrap;}
+  .resumoFlex .label{color:var(--textSecondary);font-weight:500;}
+  .resumoFlex strong{color:var(--textPrimary);font-weight:700;}
+
+  .summaryBlock{padding:10px 14px;background:var(--surfaceMuted);border-radius:8px;border:1px solid var(--border);font-size:10px;}
+  .summaryBlock .row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border);}
+  .summaryBlock .row span:first-child{color:var(--textSecondary);font-weight:500;}
+  .summaryBlock .row span:last-child{color:var(--textPrimary);font-weight:700;}
+  .summaryBlock .total{display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:2px solid var(--borderStrong);}
+  .summaryBlock .total span:first-child{font-weight:800;font-size:11px;color:var(--textPrimary);}
+  .summaryBlock .total span:last-child{font-weight:800;font-size:13px;color:var(--textPrimary);}
+
+  .banner{background:rgba(1,113,228,.08);border:1.5px solid rgba(1,113,228,.35);border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+  .banner .label{font-size:11px;font-weight:800;color:var(--brandBlue);}
+  .banner .value{font-size:14px;font-weight:800;color:var(--brandBlue);}
+
+  .subTitle{font-size:10px;font-weight:700;color:var(--textSecondary);margin-bottom:6px;}
+  .totalDestaque{display:flex;justify-content:space-between;padding:6px 10px;background:var(--surfaceMuted);border:1px solid var(--border);border-radius:6px;margin-bottom:16px;font-size:10px;}
+  .totalDestaque span:first-child{color:var(--textSecondary);font-weight:500;}
+  .totalDestaque span:last-child{color:var(--textPrimary);font-weight:800;}
+
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px;font-size:9px;}
+  .grid3 .col{border-left:1px solid var(--border);}
+  .grid3 .col:first-child{border-left:none;}
+  .grid3 .cell{display:flex;justify-content:space-between;padding:4px 8px;border-bottom:1px solid var(--border);}
+  .grid3 .cell.e{background:var(--surface);}
+  .grid3 .cell.o{background:var(--surfaceMuted);}
+  .grid3 .cell span:first-child{color:var(--textSecondary);font-weight:500;}
+  .grid3 .cell span:last-child{color:var(--textPrimary);font-weight:700;}
+
+  .formula{background:var(--surfaceMuted);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:9px;text-align:center;margin-bottom:10px;color:var(--textPrimary);font-weight:800;}
+
+  .assinaturaFinal{display:flex;justify-content:center;align-items:center;gap:16px;padding:12px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--textSecondary);}
+  .assinaturaFinal .linha{border-bottom:1px solid var(--textPrimary);width:260px;}
+
+  .rodape{border-top:1px solid var(--border);padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--textSecondary);font-weight:500;}
+  .rodape .brand{display:flex;align-items:center;gap:4px;}
+  .rodape strong{color:var(--textPrimary);font-weight:700;margin-left:3px;}
+  .rodape .pag{font-weight:700;}
+
+  .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;align-self:stretch;font-family:'Nunito Sans',sans-serif;}
+  .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
+  .bh-voltar:hover{background:rgba(255,255,255,.16);}
+  .bh-voltar svg{flex-shrink:0;}
+  .bh-topbar-brand{display:flex;align-items:center;gap:9px;margin-left:4px;}
+  .bh-topbar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.02em;}
+  .bh-topbar-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="bh-topbar">
+  <a class="bh-voltar" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar
+  </a>
+  <div class="bh-topbar-brand">
+    <svg width="26" height="26" viewBox="0 0 99.11 100.21" fill="none">
+      <rect width="99.11" height="100.21" rx="10" fill="#0f1726"/>
+      <path fill="#ffffff" d="M28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/>
+    </svg>
+    <div>
+      <div class="bh-topbar-title">BHub</div>
+      <div class="bh-topbar-sub">Motor Fiscal · Faturamento</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 1: Simples Nacional ══ -->
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor Fiscal</div></div>
+      </div>
+      <div class="cabTitulo">RELATÓRIO DE FATURAMENTO</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span class="label">Empresa: <strong>EDCLÉIA SOUZA PSICOLOGA LTDA</strong></span>
+      <span class="right label">Código de Acesso: <strong>987654</strong></span>
+      <span class="label">Início das atividades: <strong>14/03/2017</strong></span>
+      <span class="right label">CNPJ: <strong>12.345.678/0001-90</strong></span>
+      <span class="label">CPF Responsável: <strong>123.456.789-00</strong></span>
+      <span class="right label">Emissão: <strong>16/07/2025 10:28:32</strong></span>
+      <span class="label">Período: <strong>06/2025</strong></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2 class="section">Simples Nacional</h2>
+
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:46%">Total de Receitas Brutas (R$)</th>
+            <th class="right" style="width:18%">Mercado Interno</th>
+            <th class="right" style="width:18%">Mercado Externo</th>
+            <th class="right" style="width:18%">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="prim">Receita Bruta do período de Apuração (RPA) – Regime de Competência</td><td class="right prim">8.706,80</td><td class="right prim">0,00</td><td class="right prim800">8.706,80</td></tr>
+          <tr class="zebra2"><td class="prim">Receita bruta acumulada nos doze meses anteriores ao período de apuração (RBT12)</td><td class="right prim">89.982,20</td><td class="right prim">0,00</td><td class="right prim800">89.982,20</td></tr>
+          <tr class="zebra1"><td class="prim">Faixa de Enquadramento</td><td class="right prim">0,00 a 180.000,00</td><td class="right prim">0,00 a 180.000,00</td><td class="right prim800">—</td></tr>
+          <tr class="zebra2"><td class="prim">Receita bruta acumulada no ano-calendário corrente (RBA)</td><td class="right prim">53.229,40</td><td class="right prim">0,00</td><td class="right prim800">53.229,40</td></tr>
+          <tr class="zebra1"><td class="prim">Receita bruta acumulada no ano-calendário anterior (RBA)</td><td class="right prim">84.065,40</td><td class="right prim">0,00</td><td class="right prim800">84.065,40</td></tr>
+          <tr class="zebra2"><td colspan="4" style="font-size:9px;color:var(--textSecondary);font-weight:500;">Valor da Folha nos últimos 12 meses: <strong style="color:var(--textPrimary);font-weight:700;">32.343,15</strong><span style="margin-left:24px;">Fator r: <strong style="color:var(--textPrimary);font-weight:700;">35,00</strong></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="infoBox">
+      <div><span class="label">Estabelecimento: </span><strong>0001 EDCLÉIA SOUZA PSICOLOGA LTDA CNPJ: 12.345.678/0001-90</strong></div>
+      <div><span class="label">Anexo: </span><strong class="medium">Anexo III — Serviços de Saúde</strong></div>
+      <div><span class="label">Seção: </span><strong class="medium">Seção III — Tabela 2 — Sujeitos ao Fator r</strong></div>
+      <div><span class="label">Tabela: </span><strong class="medium">Tabela de tributação com alíquota progressiva conforme faixa de receita bruta acumulada dos últimos 12 meses</strong></div>
+    </div>
+
+    <div class="resumoFlex">
+      <span class="label">Receita Tributada Total: <strong>8.706,80</strong></span>
+      <span class="label">Alíquota: <strong>6,0000000000000%</strong></span>
+      <span class="label">Simples Nacional Total: <strong>522,41</strong></span>
+    </div>
+
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:130px">Partilha</th>
+            <th class="center">IRPJ</th><th class="center">CSLL</th><th class="center">COFINS</th><th class="center">PIS</th><th class="center">INSS/CPP</th><th class="center">ISS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">Situação</td><td class="center prim">Tributado</td><td class="center prim">Tributado</td><td class="center prim">Tributado</td><td class="center prim">Tributado</td><td class="center prim">Tributado</td><td class="center prim">Tributado</td></tr>
+          <tr class="zebra2"><td class="sec">Base de Cálculo</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td></tr>
+          <tr class="zebra1"><td class="sec">Alíquota</td><td class="center prim">0,240000000</td><td class="center prim">0,210000000</td><td class="center prim">0,769200000</td><td class="center prim">0,166800000</td><td class="center prim">2,604000000</td><td class="center prim">2,010000000</td></tr>
+          <tr class="boldRow"><td>Valor</td><td class="center">20,90</td><td class="center">18,28</td><td class="center">66,97</td><td class="center">14,52</td><td class="center">226,73</td><td class="center">175,01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summaryBlock">
+      <div class="row"><span>Outros Acréscimos:</span><span>R$ 0,00</span></div>
+      <div class="row"><span>Outras Deduções:</span><span>R$ 0,00</span></div>
+      <div class="row"><span>Valor Diferido:</span><span>R$ 0,00</span></div>
+      <div class="row"><span>Valor Fixo ICMS:</span><span>R$ 0,00</span></div>
+      <div class="row" style="border-bottom:none;"><span>Valor Fixo ISS:</span><span>R$ 0,00</span></div>
+      <div class="total"><span>Simples Nacional a recolher:</span><span>R$ 522,41</span></div>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 1 de 3</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 2: Memória de Cálculo ══ -->
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor Fiscal</div></div>
+      </div>
+      <div class="cabTitulo">MEMÓRIA DE CÁLCULO SIMPLES NACIONAL</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span class="label">Empresa: <strong>EDCLÉIA SOUZA PSICOLOGA LTDA</strong></span>
+      <span class="right label">Código de Acesso: <strong>987654</strong></span>
+      <span class="label">Início das atividades: <strong>14/03/2017</strong></span>
+      <span class="right label">CNPJ: <strong>12.345.678/0001-90</strong></span>
+      <span class="label">CPF Responsável: <strong>123.456.789-00</strong></span>
+      <span class="right label">Emissão: <strong>16/07/2025 10:28:32</strong></span>
+      <span class="label">Período: <strong>06/2025</strong></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div style="border-bottom:2px solid var(--borderStrong);padding-bottom:12px;margin-bottom:14px;">
+      <div style="font-size:14px;font-weight:800;color:var(--textPrimary);text-transform:uppercase;">EDCLÉIA SOUZA PSICOLOGA LTDA</div>
+      <div style="font-size:10px;color:var(--textSecondary);font-weight:500;margin-top:2px;">Competência: <strong style="color:var(--textPrimary);font-weight:700;">06/2025</strong></div>
+    </div>
+
+    <div class="infoBox">
+      <div><span class="label">Anexo: </span><strong class="medium">Anexo III — Serviços de Saúde</strong></div>
+      <div><span class="label">Seção: </span><strong class="medium">Seção III — Tabela 2 — Sujeitos ao Fator r</strong></div>
+      <div><span class="label">Tabela: </span><strong class="medium">Tabela de tributação com alíquota progressiva conforme faixa de receita bruta acumulada dos últimos 12 meses</strong></div>
+    </div>
+
+    <h2 class="section small">Cálculo da Alíquota Efetiva — Impostos Federais</h2>
+
+    <div class="formula">Alíquota efetiva = [ ( Receita Bruta Total dos últimos 12 meses × Alíquota ) − Parcela a Deduzir ] / Receita Bruta Total dos últimos 12 meses</div>
+
+    <div class="grid3">
+      <div class="col">
+        <div class="cell e"><span>(=) RBT12:</span><span>89.982,20</span></div>
+        <div class="cell o"><span>(×) Alíq. nominal:</span><span>6,00%</span></div>
+        <div class="cell e"><span>(=) Alíq. nominal:</span><span>6,00%</span></div>
+        <div class="cell o"><span>(=) Parcela a deduzir:</span><span>0,00</span></div>
+      </div>
+      <div class="col">
+        <div class="cell e"><span>(+) RBT12:</span><span>89.982,20</span></div>
+        <div class="cell o"><span>(÷) RBT12:</span><span>89.982,20</span></div>
+        <div class="cell e"><span>(=) Resultado 1:</span><span>5.398,93</span></div>
+        <div class="cell o"><span>(+) Resultado 1:</span><span>5.398,93</span></div>
+        <div class="cell e"><span>(−) Parcela a deduzir:</span><span>0,00</span></div>
+        <div class="cell o"><span>(=) Resultado 2:</span><span>5.398,93</span></div>
+      </div>
+      <div class="col">
+        <div class="cell e"><span>(+) Resultado 1:</span><span>5.398,93</span></div>
+        <div class="cell o"><span>(÷) RBT12:</span><span>89.982,20</span></div>
+        <div class="cell e"><span>(=) Alíquota efetiva:</span><span>6,0000000000000%</span></div>
+        <div class="cell o"><span>(−) Parcela a deduzir:</span><span>0,00</span></div>
+        <div class="cell e"><span>(=) Resultado 2:</span><span>5.398,93</span></div>
+      </div>
+    </div>
+
+    <h2 class="section small">Repartição da Alíquota Efetiva para os Tributos</h2>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr><th class="left" style="width:160px"> </th><th class="center">IRPJ</th><th class="center">CSLL</th><th class="center">COFINS</th><th class="center">PIS</th><th class="center">INSS/CPP</th><th class="center">ISS</th></tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">(=) Alíquota efetiva:</td><td class="center prim">6,00</td><td class="center prim">6,00</td><td class="center prim">6,00</td><td class="center prim">6,00</td><td class="center prim">6,00</td><td class="center prim">6,00</td></tr>
+          <tr class="zebra2"><td class="sec">(×) % repartição:</td><td class="center prim">4,00%</td><td class="center prim">3,50%</td><td class="center prim">12,82%</td><td class="center prim">2,78%</td><td class="center prim">43,40%</td><td class="center prim">33,50%</td></tr>
+          <tr class="boldRow"><td>(=) Alíq. ef. imp.:</td><td class="center">0,240000000</td><td class="center">0,210000000</td><td class="center">0,769200000</td><td class="center">0,166800000</td><td class="center">2,604000000</td><td class="center">2,010000000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section small">Cálculo Simples Nacional</h2>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr><th class="left" style="width:160px"> </th><th class="center">IRPJ</th><th class="center">CSLL</th><th class="center">COFINS</th><th class="center">PIS</th><th class="center">INSS/CPP</th><th class="center">ISS</th></tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">(=) Receita Tributada Total:</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td><td class="center prim">8.706,80</td></tr>
+          <tr class="zebra2"><td class="sec">(×) Alíq. ef. por imposto:</td><td class="center prim">0,240000000%</td><td class="center prim">0,210000000%</td><td class="center prim">0,769200000%</td><td class="center prim">0,166800000%</td><td class="center prim">2,604000000%</td><td class="center prim">2,010000000%</td></tr>
+          <tr class="boldRow"><td>(=) Valor:</td><td class="center">20,90</td><td class="center">18,28</td><td class="center">66,97</td><td class="center">14,52</td><td class="center">226,73</td><td class="center">175,01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="banner"><span class="label">Simples Nacional a recolher:</span><span class="value">R$ 522,41</span></div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 2 de 3</span>
+  </div>
+</div>
+
+<!-- ══ PÁGINA 3: Anexo ══ -->
+<div class="page">
+  <div class="cab">
+    <div class="cabTop">
+      <div class="cabLogo">
+        <svg width="36" height="36" viewBox="0 0 99.11 100.21" fill="none"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>
+        <div><div class="bhName">BHub</div><div class="bhSub">Motor Fiscal</div></div>
+      </div>
+      <div class="cabTitulo">RELATÓRIO DE FATURAMENTO</div>
+    </div>
+    <div class="cabDivider"></div>
+    <div class="metaGrid">
+      <span class="label">Empresa: <strong>EDCLÉIA SOUZA PSICOLOGA LTDA</strong></span>
+      <span class="right label">Código de Acesso: <strong>987654</strong></span>
+      <span class="label">Início das atividades: <strong>14/03/2017</strong></span>
+      <span class="right label">CNPJ: <strong>12.345.678/0001-90</strong></span>
+      <span class="label">CPF Responsável: <strong>123.456.789-00</strong></span>
+      <span class="right label">Emissão: <strong>16/07/2025 10:28:32</strong></span>
+      <span class="label">Período: <strong>06/2025</strong></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2 class="section">Simples Nacional — Anexo</h2>
+
+    <div class="subTitle">Receita Bruta Acumulada:</div>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:20%">Período</th>
+            <th class="right">Receita Bruta, Exceto Exportação de Mercadorias</th>
+            <th class="right" style="width:26%">Receita Bruta Exportação de Mercadorias</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">06/2025</td><td class="right prim">7.200,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">05/2025</td><td class="right prim">7.500,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">04/2025</td><td class="right prim">7.800,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">03/2025</td><td class="right prim">8.100,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">02/2025</td><td class="right prim">8.400,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">01/2025</td><td class="right prim">8.700,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">12/2024</td><td class="right prim">9.000,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">11/2024</td><td class="right prim">9.300,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">10/2024</td><td class="right prim">9.600,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">09/2024</td><td class="right prim">9.900,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra1"><td class="sec">08/2024</td><td class="right prim">10.200,00</td><td class="right prim">0,00</td></tr>
+          <tr class="zebra2"><td class="sec">07/2024</td><td class="right prim">10.500,00</td><td class="right prim">0,00</td></tr>
+          <tr class="boldRow"><td>Total:</td><td class="right">106.200,00</td><td class="right">0,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="totalDestaque"><span>Total da Receita Bruta Acumulada:</span><span>106.200,00</span></div>
+
+    <div class="subTitle" style="margin-top:8px;">Valor da Folha nos últimos 12 meses:</div>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left" style="width:20%">Mês/Ano</th>
+            <th class="right">Valor da Folha</th>
+            <th class="right" style="width:26%">INSS/CPP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="zebra1"><td class="sec">06/2025</td><td class="right prim">2.600,00</td><td class="right prim">520,00</td></tr>
+          <tr class="zebra2"><td class="sec">05/2025</td><td class="right prim">2.700,00</td><td class="right prim">540,00</td></tr>
+          <tr class="zebra1"><td class="sec">04/2025</td><td class="right prim">2.800,00</td><td class="right prim">560,00</td></tr>
+          <tr class="zebra2"><td class="sec">03/2025</td><td class="right prim">2.900,00</td><td class="right prim">580,00</td></tr>
+          <tr class="zebra1"><td class="sec">02/2025</td><td class="right prim">3.000,00</td><td class="right prim">600,00</td></tr>
+          <tr class="zebra2"><td class="sec">01/2025</td><td class="right prim">3.100,00</td><td class="right prim">620,00</td></tr>
+          <tr class="zebra1"><td class="sec">12/2024</td><td class="right prim">3.200,00</td><td class="right prim">640,00</td></tr>
+          <tr class="zebra2"><td class="sec">11/2024</td><td class="right prim">3.300,00</td><td class="right prim">660,00</td></tr>
+          <tr class="zebra1"><td class="sec">10/2024</td><td class="right prim">3.400,00</td><td class="right prim">680,00</td></tr>
+          <tr class="zebra2"><td class="sec">09/2024</td><td class="right prim">3.500,00</td><td class="right prim">700,00</td></tr>
+          <tr class="zebra1"><td class="sec">08/2024</td><td class="right prim">3.600,00</td><td class="right prim">720,00</td></tr>
+          <tr class="zebra2"><td class="sec">07/2024</td><td class="right prim">3.700,00</td><td class="right prim">740,00</td></tr>
+          <tr class="boldRow"><td>Total:</td><td class="right">37.800,00</td><td class="right">7.560,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <span class="brand"><svg width="12" height="12" viewBox="0 0 99.11 100.21" fill="none" style="vertical-align:middle;"><rect width="99.11" height="100.21" rx="10" fill="#ffffff"/><path fill="#0f1726" d="M88.68,0H10.43c-2.88,0-5.49,1.18-7.38,3.09C1.17,5,0,7.64,0,10.55v79.11c0,2.91,1.17,5.55,3.05,7.46,1.88,1.91,4.5,3.09,7.38,3.09h78.25c2.88,0,5.49-1.18,7.38-3.09,1.89-1.9,3.05-4.55,3.05-7.46V10.55c0-2.91-1.17-5.55-3.05-7.46-1.88-1.9-4.5-3.09-7.38-3.09ZM28.91,75.57c-1.02,1.04-2.37,1.55-3.71,1.55s-2.69-.52-3.71-1.55l-6.14-6.21-6.14-6.21c-1.02-1.04-1.54-2.39-1.54-3.76s.51-2.72,1.54-3.75l8-8.09,8-8.09,9.86,9.97,9.86,9.97-8,8.09-8,8.09h0ZM29.73,34.97l7.94-8.02,7.94-8.02c1.06-1.07,2.45-1.61,3.85-1.61s2.78.54,3.85,1.61l7.94,8.02,7.94,8.02-9.86,9.97-9.86,9.97-9.86-9.97-9.86-9.97h-.02ZM89.72,62.95l-6.35,6.42-6.35,6.42c-.97.98-2.24,1.47-3.51,1.47s-2.54-.49-3.51-1.47l-8.11-8.2-8.11-8.2,9.86-9.97,9.86-9.97,8.11,8.2,8.11,8.2c.97.98,1.45,2.26,1.45,3.55s-.48,2.57-1.45,3.55l.02-.02Z"/></svg>powered by <strong>BHub</strong></span>
+    <span class="pag">Página 3 de 3</span>
+  </div>
+</div>
+
+</body>
+</html>
