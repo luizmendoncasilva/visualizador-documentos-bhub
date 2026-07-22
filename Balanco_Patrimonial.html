@@ -113,6 +113,11 @@
   }
   .rodape-pagina{ font-weight:700; }
 
+  .assinatura{display:flex;justify-content:space-between;gap:40px;padding:24px 24px 4px;}
+  .assinatura-col{flex:1;text-align:center;}
+  .assinatura-col .linha{border-bottom:1px solid var(--textPrimary);margin-bottom:6px;}
+  .assinatura-col .label{font-size:10px;font-weight:500;color:var(--textSecondary);}
+
   /* Corpo */
   .corpo{
     flex:1;
@@ -274,6 +279,12 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <!-- ASSINATURA -->
+    <div class="assinatura">
+      <div class="assinatura-col"><div class="linha"></div><span class="label">Sócio</span></div>
+      <div class="assinatura-col"><div class="linha"></div><span class="label">Contador</span></div>
     </div>
 
     <!-- RODAPÉ -->

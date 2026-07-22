@@ -46,6 +46,12 @@
   tr.total td { color:#27272a; font-weight:700; }
   tr.total td.val { color:#18181b; font-weight:800; }
   td.val { color:#18181b; font-weight:700; }
+  td.contra { font-size:9px; color:#27272a; }
+
+  .assinatura { display:flex; justify-content:space-between; gap:40px; padding:24px 24px 4px; }
+  .assinatura-col { flex:1; text-align:center; }
+  .assinatura-col .linha { border-bottom:1px solid #18181b; margin-bottom:6px; }
+  .assinatura-col .label { font-size:10px; font-weight:500; color:#27272a; }
 
   .bh-topbar{position:sticky;top:0;z-index:50;background:#0f1726;padding:14px 28px;display:flex;align-items:center;gap:16px;margin:-28px -20px 20px -20px;font-family:'Nunito Sans',sans-serif;}
   .bh-voltar{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:background .15s;}
@@ -104,47 +110,53 @@
         <table>
           <thead>
             <tr>
-              <th style="width:10%">Data</th>
-              <th style="width:8%">Lote</th>
-              <th style="width:44%">Histórico</th>
-              <th class="r" style="width:12%">Débito</th>
-              <th class="r" style="width:12%">Crédito</th>
-              <th class="r" style="width:14%">Saldo</th>
+              <th style="width:9%">Data</th>
+              <th style="width:7%">Lote</th>
+              <th style="width:30%">Histórico</th>
+              <th style="width:17%">Contrapartida</th>
+              <th class="r" style="width:11%">Débito</th>
+              <th class="r" style="width:11%">Crédito</th>
+              <th class="r" style="width:13%">Saldo</th>
             </tr>
           </thead>
           <tbody>
             <tr class="conta">
-              <td colspan="6">
+              <td colspan="7">
                 <span class="conta-label">1.1.01.02.00016 — BANCO CORA</span>
                 <span class="conta-detalhe">Saldo Inicial: R$ 760.823,32 D</span>
               </td>
             </tr>
-            <tr class="even"><td>03/01/2025</td><td>5247</td><td>Receb. Orthocrin Indústria e Comércio Ltda</td><td class="r val">7.000,00</td><td class="r val">—</td><td class="r val">767.823,32</td></tr>
-            <tr class="odd"><td>03/01/2025</td><td>5248</td><td>Receb. Humana Alimentar</td><td class="r val">8.000,00</td><td class="r val">—</td><td class="r val">775.823,32</td></tr>
-            <tr class="even"><td>05/01/2025</td><td>5249</td><td>Pgto PagBrasil Pagamentos Eletrônicos</td><td class="r val">—</td><td class="r val">3.000,00</td><td class="r val">772.823,32</td></tr>
-            <tr class="odd"><td>06/01/2025</td><td>5250</td><td>Receb. Stripe Brasil Soluções de Pagamento</td><td class="r val">1.381,85</td><td class="r val">—</td><td class="r val">774.205,17</td></tr>
-            <tr class="even"><td>06/01/2025</td><td>5252</td><td>Receb. Barrind Indústria e Comércio de Alimentos</td><td class="r val">5.700,00</td><td class="r val">—</td><td class="r val">779.905,17</td></tr>
-            <tr class="odd"><td>08/01/2025</td><td>5256</td><td>Receb. Sportech Brazil Distribuidora de Peças</td><td class="r val">14.400,00</td><td class="r val">—</td><td class="r val">803.814,49</td></tr>
-            <tr class="even"><td>08/01/2025</td><td>5257</td><td>Pgto NF 295 Agência Lemon Pepper Ltda</td><td class="r val">—</td><td class="r val">8.000,00</td><td class="r val">801.591,23</td></tr>
-            <tr class="odd"><td>08/01/2025</td><td>5258</td><td>Pgto NF 00000237 C F Dourado Consultoria</td><td class="r val">—</td><td class="r val">13.000,00</td><td class="r val">788.591,23</td></tr>
-            <tr class="even"><td>08/01/2025</td><td>5259</td><td>Pgto NF 23 Matheus Lacerda Alves Consultoria</td><td class="r val">—</td><td class="r val">7.500,00</td><td class="r val">781.091,23</td></tr>
-            <tr class="odd"><td>08/01/2025</td><td>5260</td><td>Pgto NF 00000111 Lua F Vaz</td><td class="r val">—</td><td class="r val">19.000,00</td><td class="r val">762.091,23</td></tr>
-            <tr class="even"><td>08/01/2025</td><td>5264</td><td>Pgto Pró-labore Robson Catalan Pereira</td><td class="r val">—</td><td class="r val">25.000,00</td><td class="r val">718.591,23</td></tr>
-            <tr class="odd"><td>08/01/2025</td><td>5265</td><td>Pgto Pró-labore Vitor Mateus Costa</td><td class="r val">—</td><td class="r val">22.350,00</td><td class="r val">696.241,23</td></tr>
-            <tr class="even"><td>13/01/2025</td><td>5273</td><td>Transf. realizada para Cora — Cartão de Crédito</td><td class="r val">—</td><td class="r val">9.499,72</td><td class="r val">679.140,95</td></tr>
-            <tr class="odd"><td>20/01/2025</td><td>5277</td><td>Pgto Simples Nacional (DAS) — Receita Federal</td><td class="r val">—</td><td class="r val">22.148,97</td><td class="r val">675.540,34</td></tr>
-            <tr class="even"><td>20/01/2025</td><td>5278</td><td>Pgto NF 014854 BHub Contabilidade Ltda</td><td class="r val">—</td><td class="r val">2.502,22</td><td class="r val">673.038,12</td></tr>
-            <tr class="odd"><td>20/01/2025</td><td>5279</td><td>Pgto Assistência Médica Bradesco Saúde S/A</td><td class="r val">—</td><td class="r val">2.320,05</td><td class="r val">670.718,07</td></tr>
-            <tr class="even"><td>22/01/2025</td><td>5283</td><td>Receb. Holy Group Ltda</td><td class="r val">5.550,00</td><td class="r val">—</td><td class="r val">676.268,07</td></tr>
-            <tr class="odd"><td>22/01/2025</td><td>5284</td><td>Receb. Guday Produtos Alimentícios Ltda</td><td class="r val">3.600,00</td><td class="r val">—</td><td class="r val">679.868,07</td></tr>
-            <tr class="even"><td>28/01/2025</td><td>5296</td><td>Transf. p/ Mercado Pago-PayPal</td><td class="r val">—</td><td class="r val">300.000,00</td><td class="r val">449.162,06</td></tr>
-            <tr class="odd"><td>28/01/2025</td><td>5297</td><td>Transf. p/ Mercado Pago-PayPal</td><td class="r val">—</td><td class="r val">300.000,00</td><td class="r val">149.162,06</td></tr>
-            <tr class="even"><td>31/01/2025</td><td>5342</td><td>Receb. NutraLive Company Ltda</td><td class="r val">6.666,66</td><td class="r val">—</td><td class="r val">163.718,29</td></tr>
-            <tr class="odd"><td>31/01/2025</td><td>5344</td><td>Receb. Orthocrin Indústria e Comércio Ltda</td><td class="r val">7.000,00</td><td class="r val">—</td><td class="r val">174.718,29</td></tr>
-            <tr class="total"><td></td><td></td><td>Totais da conta</td><td class="r val">59.298,51</td><td class="r val">734.320,96</td><td class="r val">174.718,29</td></tr>
+            <tr class="even"><td>03/01/2025</td><td>5247</td><td>Receb. Orthocrin Indústria e Comércio Ltda</td><td class="contra">1.1.02 — Clientes</td><td class="r val">7.000,00</td><td class="r val">—</td><td class="r val">767.823,32</td></tr>
+            <tr class="odd"><td>03/01/2025</td><td>5248</td><td>Receb. Humana Alimentar</td><td class="contra">1.1.02 — Clientes</td><td class="r val">8.000,00</td><td class="r val">—</td><td class="r val">775.823,32</td></tr>
+            <tr class="even"><td>05/01/2025</td><td>5249</td><td>Pgto PagBrasil Pagamentos Eletrônicos</td><td class="contra">4.2.02 — Despesas Administrativas</td><td class="r val">—</td><td class="r val">3.000,00</td><td class="r val">772.823,32</td></tr>
+            <tr class="odd"><td>06/01/2025</td><td>5250</td><td>Receb. Stripe Brasil Soluções de Pagamento</td><td class="contra">1.1.02 — Clientes</td><td class="r val">1.381,85</td><td class="r val">—</td><td class="r val">774.205,17</td></tr>
+            <tr class="even"><td>06/01/2025</td><td>5252</td><td>Receb. Barrind Indústria e Comércio de Alimentos</td><td class="contra">1.1.02 — Clientes</td><td class="r val">5.700,00</td><td class="r val">—</td><td class="r val">779.905,17</td></tr>
+            <tr class="odd"><td>08/01/2025</td><td>5256</td><td>Receb. Sportech Brazil Distribuidora de Peças</td><td class="contra">1.1.02 — Clientes</td><td class="r val">14.400,00</td><td class="r val">—</td><td class="r val">803.814,49</td></tr>
+            <tr class="even"><td>08/01/2025</td><td>5257</td><td>Pgto NF 295 Agência Lemon Pepper Ltda</td><td class="contra">2.1.02 — Fornecedores</td><td class="r val">—</td><td class="r val">8.000,00</td><td class="r val">801.591,23</td></tr>
+            <tr class="odd"><td>08/01/2025</td><td>5258</td><td>Pgto NF 00000237 C F Dourado Consultoria</td><td class="contra">2.1.02 — Fornecedores</td><td class="r val">—</td><td class="r val">13.000,00</td><td class="r val">788.591,23</td></tr>
+            <tr class="even"><td>08/01/2025</td><td>5259</td><td>Pgto NF 23 Matheus Lacerda Alves Consultoria</td><td class="contra">2.1.02 — Fornecedores</td><td class="r val">—</td><td class="r val">7.500,00</td><td class="r val">781.091,23</td></tr>
+            <tr class="odd"><td>08/01/2025</td><td>5260</td><td>Pgto NF 00000111 Lua F Vaz</td><td class="contra">2.1.02 — Fornecedores</td><td class="r val">—</td><td class="r val">19.000,00</td><td class="r val">762.091,23</td></tr>
+            <tr class="even"><td>08/01/2025</td><td>5264</td><td>Pgto Pró-labore Robson Catalan Pereira</td><td class="contra">2.1.01 — Obrigações Trabalhistas</td><td class="r val">—</td><td class="r val">25.000,00</td><td class="r val">718.591,23</td></tr>
+            <tr class="odd"><td>08/01/2025</td><td>5265</td><td>Pgto Pró-labore Vitor Mateus Costa</td><td class="contra">2.1.01 — Obrigações Trabalhistas</td><td class="r val">—</td><td class="r val">22.350,00</td><td class="r val">696.241,23</td></tr>
+            <tr class="even"><td>13/01/2025</td><td>5273</td><td>Transf. realizada para Cora — Cartão de Crédito</td><td class="contra">1.1.01 — Disponível</td><td class="r val">—</td><td class="r val">9.499,72</td><td class="r val">679.140,95</td></tr>
+            <tr class="odd"><td>20/01/2025</td><td>5277</td><td>Pgto Simples Nacional (DAS) — Receita Federal</td><td class="contra">2.1.04 — Obrigações Tributárias</td><td class="r val">—</td><td class="r val">22.148,97</td><td class="r val">675.540,34</td></tr>
+            <tr class="even"><td>20/01/2025</td><td>5278</td><td>Pgto NF 014854 BHub Contabilidade Ltda</td><td class="contra">2.1.02 — Fornecedores</td><td class="r val">—</td><td class="r val">2.502,22</td><td class="r val">673.038,12</td></tr>
+            <tr class="odd"><td>20/01/2025</td><td>5279</td><td>Pgto Assistência Médica Bradesco Saúde S/A</td><td class="contra">2.1.01 — Obrigações Trabalhistas</td><td class="r val">—</td><td class="r val">2.320,05</td><td class="r val">670.718,07</td></tr>
+            <tr class="even"><td>22/01/2025</td><td>5283</td><td>Receb. Holy Group Ltda</td><td class="contra">1.1.02 — Clientes</td><td class="r val">5.550,00</td><td class="r val">—</td><td class="r val">676.268,07</td></tr>
+            <tr class="odd"><td>22/01/2025</td><td>5284</td><td>Receb. Guday Produtos Alimentícios Ltda</td><td class="contra">1.1.02 — Clientes</td><td class="r val">3.600,00</td><td class="r val">—</td><td class="r val">679.868,07</td></tr>
+            <tr class="even"><td>28/01/2025</td><td>5296</td><td>Transf. p/ Mercado Pago-PayPal</td><td class="contra">1.1.01 — Disponível</td><td class="r val">—</td><td class="r val">300.000,00</td><td class="r val">449.162,06</td></tr>
+            <tr class="odd"><td>28/01/2025</td><td>5297</td><td>Transf. p/ Mercado Pago-PayPal</td><td class="contra">1.1.01 — Disponível</td><td class="r val">—</td><td class="r val">300.000,00</td><td class="r val">149.162,06</td></tr>
+            <tr class="even"><td>31/01/2025</td><td>5342</td><td>Receb. NutraLive Company Ltda</td><td class="contra">1.1.02 — Clientes</td><td class="r val">6.666,66</td><td class="r val">—</td><td class="r val">163.718,29</td></tr>
+            <tr class="odd"><td>31/01/2025</td><td>5344</td><td>Receb. Orthocrin Indústria e Comércio Ltda</td><td class="contra">1.1.02 — Clientes</td><td class="r val">7.000,00</td><td class="r val">—</td><td class="r val">174.718,29</td></tr>
+            <tr class="total"><td></td><td></td><td>Totais da conta</td><td></td><td class="r val">59.298,51</td><td class="r val">734.320,96</td><td class="r val">174.718,29</td></tr>
           </tbody>
         </table>
       </div>
+    </div>
+
+    <div class="assinatura">
+      <div class="assinatura-col"><div class="linha"></div><span class="label">Sócio</span></div>
+      <div class="assinatura-col"><div class="linha"></div><span class="label">Contador</span></div>
     </div>
 
     <div class="rod">
