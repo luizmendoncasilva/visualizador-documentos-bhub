@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relação Geral dos Líquidos</title>
+<title>Relação de Líquidos</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;700;800;900&display=swap">
 <style>
   :root{
@@ -24,6 +24,7 @@
   .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
   .metaGrid span{color:var(--textSecondary);font-weight:500;}
   .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .metaGrid .cnpj{margin-top:2px;font-size:9px;}
   .right{text-align:right;}
 
   .body{padding:16px 24px;}
@@ -40,9 +41,9 @@
   .cod,.nome{color:var(--textSecondary);font-weight:500;}
   .valor{color:var(--textPrimary);font-weight:700;}
 
-  tr.subtotal td{background:var(--surfaceMuted);border-bottom:1px solid var(--border);border-top:1.5px solid var(--borderStrong);padding:7px 10px;font-size:10px;}
-  .subtotalLabel{font-weight:700;color:var(--textSecondary);}
-  .subtotalValor{font-weight:700;color:var(--textPrimary);}
+  tr.subtotal td{background:var(--brandBlueSoftBg,rgba(1,113,228,.08));border-bottom:1px solid var(--border);border-top:2px solid var(--brandBlue);padding:9px 10px;font-size:11px;}
+  .subtotalLabel{font-weight:800;color:var(--brandBlue);text-transform:uppercase;letter-spacing:.03em;font-size:10px;}
+  .subtotalValor{font-weight:900;color:var(--brandBlue);font-size:12px;}
 
   tr.totalGeral td{background:var(--surface);border-top:2px solid var(--borderStrong);padding:12px 10px;font-size:12px;font-weight:900;color:var(--textPrimary);}
 
@@ -135,15 +136,16 @@
 </svg>
 </div>
       </div>
-      <div class="cabTitulo">RELAÇÃO GERAL DOS LÍQUIDOS</div>
+      <div class="cabTitulo">RELAÇÃO DE LÍQUIDOS</div>
     </div>
     <div class="cabDivider"></div>
     <div class="metaGrid">
-      <span>Empresa: <strong>BABY E BAG COMERCIO DE PRESENTE LTDA</strong></span>
-      <span class="right">CNPJ: <strong>41.520.419/0001-51</strong></span>
-      <span>Tipo de cálculo: <strong>Simples Nacional</strong></span>
-      <span class="right">Competência: <strong>04/2025</strong></span>
-      <span></span>
+      <div>
+        <span>Empresa: <strong>BABY E BAG COMERCIO DE PRESENTE LTDA</strong></span>
+        <div class="cnpj">CNPJ: <strong>41.520.419/0001-51</strong></div>
+      </div>
+      <span class="right">Tipo de Processamento: <strong>Folha Mensal</strong></span>
+      <span>Competência: <strong>04/2025</strong></span>
       <span class="right">Emissão: <strong>22/05/2026 10:30:00</strong></span>
     </div>
   </div>

@@ -25,6 +25,7 @@
   .metaGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 24px;font-size:10px;}
   .metaGrid span{color:var(--textSecondary);font-weight:500;}
   .metaGrid strong{color:var(--textPrimary);font-weight:700;}
+  .metaGrid .cnpj{margin-top:2px;font-size:9px;}
   .right{text-align:right;}
 
   .rodape{border-top:1px solid var(--border);padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:500;color:var(--textSecondary);}
@@ -156,11 +157,12 @@
     </div>
     <div class="cabDivider"></div>
     <div class="metaGrid">
-      <span>Empresa: <strong>BABY E BAG COMERCIO DE PRESENTE LTDA</strong></span>
-      <span class="right">CNPJ: <strong>41.520.419/0001-51</strong></span>
-      <span>Tipo: <strong>CLT</strong></span>
-      <span class="right">Competência: <strong>05/2026</strong></span>
-      <span>Período: <strong>—</strong></span>
+      <div>
+        <span>Empresa: <strong>BABY E BAG COMERCIO DE PRESENTE LTDA</strong></span>
+        <div class="cnpj">CNPJ: <strong>41.520.419/0001-51</strong></div>
+      </div>
+      <span class="right">Tipo de Processamento: <strong>Folha Mensal</strong></span>
+      <span>Competência: <strong>05/2026</strong></span>
       <span class="right">Emissão: <strong>06/06/2026 08:45:12</strong></span>
     </div>
   </div>
@@ -215,9 +217,10 @@
 
     <div>
       <div class="basesTitle">Bases de Cálculo</div>
-      <div class="basesGrid">
+      <div class="basesGrid" style="grid-template-columns:repeat(4,1fr);">
         <div class="baseCard"><div class="l">Sal. Contrib. INSS</div><div class="v">R$ 4.909,09</div></div>
         <div class="baseCard"><div class="l">Base Calc. FGTS</div><div class="v">R$ 4.909,09</div></div>
+        <div class="baseCard"><div class="l">FGTS do Mês</div><div class="v">R$ 392,73</div></div>
         <div class="baseCard"><div class="l">Base Calc. IRRF</div><div class="v">R$ 4.266,56</div></div>
       </div>
     </div>
